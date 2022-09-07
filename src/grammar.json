@@ -1,0 +1,138 @@
+{
+  "name": "twig",
+  "rules": {
+    "template": {
+      "type": "REPEAT",
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "block_directive"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "variable_directive"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "comment"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "content"
+          }
+        ]
+      }
+    },
+    "content": {
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "REPEAT1",
+        "content": {
+          "type": "PATTERN",
+          "value": "[^\\{]+|\\{"
+        }
+      }
+    },
+    "block_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "{%"
+            },
+            {
+              "type": "STRING",
+              "value": "{%-"
+            },
+            {
+              "type": "STRING",
+              "value": "{%~"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "block_code"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "STRING",
+              "value": "%}"
+            },
+            {
+              "type": "STRING",
+              "value": "-%}"
+            },
+            {
+              "type": "STRING",
+              "value": "~%}"
+            }
+          ]
+        }
+      ]
+    },
+    "block_code": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "PATTERN",
+        "value": "[^%-~]+|[%-~]"
+      }
+    },
+    "variable_directive": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{{"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "variable_code"
+        },
+        {
+          "type": "STRING",
+          "value": "}}"
+        }
+      ]
+    },
+    "variable_code": {
+      "type": "REPEAT1",
+      "content": {
+        "type": "PATTERN",
+        "value": "[^\\}]+|[\\}]"
+      }
+    },
+    "comment": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{#"
+        },
+        {
+          "type": "PATTERN",
+          "value": "[^#]*\\#+([^\\}#][^#]*\\#+)*"
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    }
+  },
+  "extras": [],
+  "conflicts": [],
+  "precedences": [],
+  "externals": [],
+  "inline": [],
+  "supertypes": []
+}
+
