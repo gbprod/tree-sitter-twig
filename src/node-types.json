@@ -1,5 +1,20 @@
 [
   {
+    "type": "arguments",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "block_code",
     "named": true,
     "fields": {}
@@ -30,6 +45,71 @@
     "fields": {}
   },
   {
+    "type": "expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "filter",
+          "named": true
+        },
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "filter",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arguments",
+          "named": true
+        },
+        {
+          "type": "filter_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_call",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "arguments",
+          "named": true
+        },
+        {
+          "type": "function_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "template",
     "named": true,
     "fields": {},
@@ -57,11 +137,6 @@
     }
   },
   {
-    "type": "variable_code",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "variable_directive",
     "named": true,
     "fields": {},
@@ -70,7 +145,7 @@
       "required": true,
       "types": [
         {
-          "type": "variable_code",
+          "type": "expression",
           "named": true
         }
       ]
@@ -81,8 +156,40 @@
     "named": false
   },
   {
+    "type": "(",
+    "named": false
+  },
+  {
+    "type": ")",
+    "named": false
+  },
+  {
+    "type": ",",
+    "named": false
+  },
+  {
     "type": "-%}",
     "named": false
+  },
+  {
+    "type": "-}}",
+    "named": false
+  },
+  {
+    "type": "filter_identifier",
+    "named": true
+  },
+  {
+    "type": "function_identifier",
+    "named": true
+  },
+  {
+    "type": "string",
+    "named": true
+  },
+  {
+    "type": "variable",
+    "named": true
   },
   {
     "type": "{#",
@@ -105,6 +212,18 @@
     "named": false
   },
   {
+    "type": "{{-",
+    "named": false
+  },
+  {
+    "type": "{{~",
+    "named": false
+  },
+  {
+    "type": "|",
+    "named": false
+  },
+  {
     "type": "}",
     "named": false
   },
@@ -114,6 +233,10 @@
   },
   {
     "type": "~%}",
+    "named": false
+  },
+  {
+    "type": "~}}",
     "named": false
   }
 ]

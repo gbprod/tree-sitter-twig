@@ -1,0 +1,127 @@
+===============
+Simple variable
+===============
+
+Lorem {{ ipsum }} dolor sit amet
+
+---
+
+(template
+  (content)
+  (variable_directive
+   (expression
+      (variable)))
+  (content))
+
+=============
+Function call
+=============
+
+Lorem {{ ipsum() }} dolor sit amet
+
+---
+
+  (template
+   (content)
+   (variable_directive
+    (expression
+     (function_call
+      (function_identifier)
+      (arguments))))
+   (content))
+
+==========================
+Function call w/ arguments
+==========================
+
+Lorem {{ ipsum(test, test) }} dolor sit amet
+
+---
+
+  (template
+   (content)
+   (variable_directive
+    (expression
+     (function_call
+      (function_identifier)
+      (arguments
+       (expression
+        (variable))
+       (expression
+        (variable))))))
+   (content))
+
+===================
+Variable and filter
+===================
+
+Lorem {{ ipsum | filter }} dolor sit amet
+
+---
+
+  (template
+   (content)
+   (variable_directive
+    (expression
+      (variable)
+      (filter
+        (filter_identifier))))
+   (content))
+
+===========================
+Variable and filter w/ args
+===========================
+
+Lorem {{ ipsum | filter(arg) }} dolor sit amet
+
+---
+
+  (template
+   (content)
+   (variable_directive
+    (expression
+      (variable)
+      (filter
+        (filter_identifier)
+        (arguments
+          (expression
+            (variable))))))
+   (content))
+
+=============================
+Variable and filter w/ string
+=============================
+
+Lorem {{ ipsum | filter('arg') }} dolor sit amet
+
+---
+
+  (template
+   (content)
+   (variable_directive
+    (expression
+      (variable)
+      (filter
+        (filter_identifier)
+        (arguments
+          (expression
+            (string))))))
+   (content))
+
+=================
+string and filter
+=================
+
+Lorem {{ 'ipsum' | filter }} dolor sit amet
+
+---
+
+  (template
+   (content)
+   (variable_directive
+    (expression
+      (string)
+      (filter
+       (filter_identifier))))
+   (content))
+
