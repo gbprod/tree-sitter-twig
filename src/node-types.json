@@ -1,5 +1,68 @@
 [
   {
+    "type": "argument",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "argument_name",
+          "named": true
+        },
+        {
+          "type": "argument_value",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "argument_name",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "argument_value",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "filter",
+          "named": true
+        },
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "arguments",
     "named": true,
     "fields": {},
@@ -8,7 +71,50 @@
       "required": false,
       "types": [
         {
-          "type": "expression",
+          "type": "argument",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "binary_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "filter",
+          "named": true
+        },
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "operator",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "variable",
           "named": true
         }
       ]
@@ -45,33 +151,6 @@
     "fields": {}
   },
   {
-    "type": "expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "filter",
-          "named": true
-        },
-        {
-          "type": "function_call",
-          "named": true
-        },
-        {
-          "type": "string",
-          "named": true
-        },
-        {
-          "type": "variable",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "filter",
     "named": true,
     "fields": {},
@@ -91,6 +170,11 @@
     }
   },
   {
+    "type": "filter_identifier",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "function_call",
     "named": true,
     "fields": {},
@@ -104,6 +188,55 @@
         },
         {
           "type": "function_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "function_identifier",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "operator",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "output_directive",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "filter",
+          "named": true
+        },
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "variable",
           "named": true
         }
       ]
@@ -130,26 +263,67 @@
           "named": true
         },
         {
-          "type": "variable_directive",
+          "type": "output_directive",
           "named": true
         }
       ]
     }
   },
   {
-    "type": "variable_directive",
+    "type": "unary_expression",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "expression",
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "filter",
+          "named": true
+        },
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "operator",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "variable",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "variable",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "!=",
+    "named": false
+  },
+  {
+    "type": "%",
+    "named": false
   },
   {
     "type": "%}",
@@ -164,7 +338,23 @@
     "named": false
   },
   {
+    "type": "*",
+    "named": false
+  },
+  {
+    "type": "**",
+    "named": false
+  },
+  {
+    "type": "+",
+    "named": false
+  },
+  {
     "type": ",",
+    "named": false
+  },
+  {
+    "type": "-",
     "named": false
   },
   {
@@ -176,19 +366,111 @@
     "named": false
   },
   {
-    "type": "filter_identifier",
+    "type": ".",
+    "named": false
+  },
+  {
+    "type": "..",
+    "named": false
+  },
+  {
+    "type": "/",
+    "named": false
+  },
+  {
+    "type": "//",
+    "named": false
+  },
+  {
+    "type": "<",
+    "named": false
+  },
+  {
+    "type": "<=",
+    "named": false
+  },
+  {
+    "type": "<=>",
+    "named": false
+  },
+  {
+    "type": "=",
+    "named": false
+  },
+  {
+    "type": "==",
+    "named": false
+  },
+  {
+    "type": ">",
+    "named": false
+  },
+  {
+    "type": ">=",
+    "named": false
+  },
+  {
+    "type": "??",
+    "named": false
+  },
+  {
+    "type": "and",
+    "named": false
+  },
+  {
+    "type": "b-and",
+    "named": false
+  },
+  {
+    "type": "b-or",
+    "named": false
+  },
+  {
+    "type": "b-xor",
+    "named": false
+  },
+  {
+    "type": "ends with",
+    "named": false
+  },
+  {
+    "type": "in",
+    "named": false
+  },
+  {
+    "type": "is",
+    "named": false
+  },
+  {
+    "type": "is not",
+    "named": false
+  },
+  {
+    "type": "matches",
+    "named": false
+  },
+  {
+    "type": "not",
+    "named": false
+  },
+  {
+    "type": "not in",
+    "named": false
+  },
+  {
+    "type": "number",
     "named": true
   },
   {
-    "type": "function_identifier",
-    "named": true
+    "type": "or",
+    "named": false
+  },
+  {
+    "type": "starts with",
+    "named": false
   },
   {
     "type": "string",
-    "named": true
-  },
-  {
-    "type": "variable",
     "named": true
   },
   {
@@ -229,6 +511,10 @@
   },
   {
     "type": "}}",
+    "named": false
+  },
+  {
+    "type": "~",
     "named": false
   },
   {
