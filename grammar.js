@@ -36,22 +36,52 @@ module.exports = grammar({
         seq(
           choice(
             alias($.identifier, $.variable),
-            $.function_call,
             $._literal,
+            $.function_call,
             seq('(', $._expression, ')'),
+            $.unary_expression,
             $.binary_expression,
-            $.unary_expression
+            $.ternary_expression
           ),
           optional(repeat(seq('|', $.filter)))
         )
       ),
 
-    identifier: () => seq(REGEX_NAME, repeat(seq('.', REGEX_NAME))),
+    identifier: ($) => seq($._name, repeat(seq('.', $._name))),
+    _name: () => REGEX_NAME,
 
-    _literal: ($) => choice($.string, $.number),
+    _literal: ($) =>
+      choice($.string, $.number, $.array, $.hash, $.boolean, $.null),
 
+    boolean: () => choice('true', 'false'),
+    null: () => 'null',
     string: () => REGEX_STRING,
     number: () => REGEX_NUMBER,
+    array: ($) =>
+      seq(
+        '[',
+        optional(seq($._expression, repeat(seq(',', $._expression)))),
+        ']'
+      ),
+    hash: ($) =>
+      seq(
+        '{',
+        optional(seq($._hash_entry, repeat(seq(',', $._hash_entry)))),
+        '}'
+      ),
+    _hash_entry: ($) =>
+      seq(optional($.hash_key), alias($._expression, $.hash_value)),
+
+    hash_key: ($) =>
+      seq(
+        choice(
+          seq('(', $._expression, ')'),
+          $.string,
+          $.number,
+          alias($._name, $.name)
+        ),
+        ':'
+      ),
 
     function_call: ($) =>
       seq(alias($.identifier, $.function_identifier), $.arguments),
@@ -102,12 +132,16 @@ module.exports = grammar({
         'is',
         'is not',
         '**',
-        '??'
+        '??',
+        '?:'
       ),
 
     unary_expression: ($) =>
       prec.left(seq(alias($.unary_operator, $.operator), $._expression)),
 
     unary_operator: () => choice('-', '+', 'not'),
+
+    ternary_expression: ($) =>
+      prec.left(seq($._expression, '?', $._expression, ':', $._expression)),
   },
 });

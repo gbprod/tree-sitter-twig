@@ -236,3 +236,83 @@ parenthesis precedence
       (filter_identifier)))
     (content))
 
+======
+Arrays
+======
+
+{{ ["test", test(), test|filter] }}
+
+---
+
+  (template
+   (output_directive
+    (array
+      (string)
+      (function_call
+        (function_identifier)
+        (arguments))
+      (variable)
+      (filter
+        (filter_identifier))))
+    (content))
+
+======
+Hashes
+======
+
+{{ { 'foo': 'foo', bar: 'bar', 2: 'foo', foo, (foo): 'foo', (1 + 1): 'bar', (foo ~ 'b'): 'baz' } }}
+
+---
+
+    (template
+      (output_directive
+        (hash
+          (hash_key
+            (string))
+          (hash_value
+            (string))
+          (hash_key
+            (name))
+          (hash_value
+            (string))
+          (hash_key
+            (number))
+          (hash_value
+            (string))
+          (hash_value
+            (variable))
+          (hash_key
+            (variable))
+          (hash_value
+            (string))
+          (hash_key
+            (binary_expression
+              (number)
+              (operator)
+              (number)))
+          (hash_value
+            (string))
+          (hash_key
+            (binary_expression
+              (variable)
+              (operator)
+              (string)))
+          (hash_value
+            (string))))
+      (content))
+
+=======
+Ternary
+=======
+
+{{ foo ? 'yes' : 'no' }}
+
+---
+
+    (template
+      (output_directive
+        (ternary_expression
+          (variable)
+          (string)
+          (string)))
+      (content))
