@@ -27,7 +27,10 @@ module.exports = grammar({
         $.assignment_statement,
         $.for_statement,
         $.if_statement,
-        $.include_statement,
+        $.macro_statement,
+
+        alias($.include_statement, $.tag_statement),
+        alias($.with_statement, $.tag_statement),
         $.tag_statement
       ),
 
@@ -41,29 +44,52 @@ module.exports = grammar({
 
     for_statement: ($) =>
       seq(
-        alias('for', $.keyword),
+        alias('for', $.repeat),
         alias($._name, $.variable),
         alias('in', $.keyword),
         $._expression
       ),
 
-    if_statement: ($) => seq(alias('if', $.keyword), $._expression),
+    if_statement: ($) =>
+      choice(
+        seq(alias(choice('if', 'elseif'), $.conditional), $._expression),
+        alias('else', $.conditional)
+      ),
 
     tag_statement: ($) =>
       seq(alias($._name, $.tag), repeat(prec.left($._expression))),
 
     include_statement: ($) =>
       seq(
-        alias('include', $.tag),
+        alias(choice('include', 'embed'), $.tag),
         $._expression,
         repeat(
           choice(
-            seq(alias('with', $.keyword), $._expression),
-            alias('only', $.keyword),
-            alias('ignore missing', $.keyword)
+            seq(alias('with', $.attribute), $._expression),
+            alias('only', $.attribute),
+            alias('ignore missing', $.attribute)
           )
         )
       ),
+
+    with_statement: ($) =>
+      seq(
+        alias('with', $.tag),
+        $._expression,
+        optional(alias('only', $.attribute))
+      ),
+
+    macro_statement: ($) =>
+      seq(
+        alias('macro', $.tag),
+        alias($._name, $.method),
+        optional($.parameters)
+      ),
+
+    parameters: ($) =>
+      seq('(', optional(seq($.parameter, repeat(seq(',', $.parameter)))), ')'),
+
+    parameter: ($) => seq($._name, optional(seq('=', $._literal))),
 
     output_directive: ($) =>
       seq(

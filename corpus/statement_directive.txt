@@ -48,7 +48,7 @@ For
     (template
       (statement_directive
         (for_statement
-          (keyword)
+          (repeat)
           (variable)
           (keyword)
           (function_call
@@ -82,7 +82,7 @@ if
     (template
       (statement_directive
         (if_statement
-          (keyword)
+          (conditional)
           (binary_expression
             (variable)
             (filter
@@ -179,15 +179,57 @@ Include
 
     (template
       (statement_directive
-        (include_statement
+        (tag_statement
           (tag)
           (string)
-          (keyword)
-          (keyword)
+          (attribute)
+          (attribute)
           (hash
             (hash_key
               (string))
             (hash_value
               (string)))
-          (keyword)))
+          (attribute)))
+      (content))
+
+====
+with
+====
+
+{% with { foo: 42 } only %}
+
+---
+
+    (template
+      (statement_directive
+        (tag_statement
+          (tag)
+          (hash
+            (hash_key
+              (name))
+            (hash_value
+              (number)))
+          (attribute)))
+      (content))
+
+=====
+macro
+=====
+
+{% macro input(name, value, type = "text", size = 20) %}
+
+---
+
+    (template
+      (statement_directive
+        (macro_statement
+          (tag)
+          (method)
+          (parameters
+            (parameter)
+            (parameter)
+            (parameter
+              (string))
+            (parameter
+              (number)))))
       (content))

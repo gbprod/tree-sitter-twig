@@ -366,6 +366,10 @@
           "named": true
         },
         {
+          "type": "repeat",
+          "named": true
+        },
+        {
           "type": "string",
           "named": true
         },
@@ -570,6 +574,10 @@
           "named": true
         },
         {
+          "type": "conditional",
+          "named": true
+        },
+        {
           "type": "filter",
           "named": true
         },
@@ -579,10 +587,6 @@
         },
         {
           "type": "hash",
-          "named": true
-        },
-        {
-          "type": "keyword",
           "named": true
         },
         {
@@ -613,7 +617,7 @@
     }
   },
   {
-    "type": "include_statement",
+    "type": "macro_statement",
     "named": true,
     "fields": {},
     "children": {
@@ -621,63 +625,24 @@
       "required": true,
       "types": [
         {
-          "type": "array",
+          "type": "method",
           "named": true
         },
         {
-          "type": "binary_expression",
-          "named": true
-        },
-        {
-          "type": "boolean",
-          "named": true
-        },
-        {
-          "type": "filter",
-          "named": true
-        },
-        {
-          "type": "function_call",
-          "named": true
-        },
-        {
-          "type": "hash",
-          "named": true
-        },
-        {
-          "type": "keyword",
-          "named": true
-        },
-        {
-          "type": "null",
-          "named": true
-        },
-        {
-          "type": "number",
-          "named": true
-        },
-        {
-          "type": "string",
+          "type": "parameters",
           "named": true
         },
         {
           "type": "tag",
           "named": true
-        },
-        {
-          "type": "ternary_expression",
-          "named": true
-        },
-        {
-          "type": "unary_expression",
-          "named": true
-        },
-        {
-          "type": "variable",
-          "named": true
         }
       ]
     }
+  },
+  {
+    "type": "method",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "name",
@@ -749,6 +714,56 @@
     }
   },
   {
+    "type": "parameter",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "hash",
+          "named": true
+        },
+        {
+          "type": "null",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "parameters",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "parameter",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "statement_directive",
     "named": true,
     "fields": {},
@@ -769,7 +784,7 @@
           "named": true
         },
         {
-          "type": "include_statement",
+          "type": "macro_statement",
           "named": true
         },
         {
@@ -794,6 +809,10 @@
       "types": [
         {
           "type": "array",
+          "named": true
+        },
+        {
+          "type": "attribute",
           "named": true
         },
         {
@@ -1122,6 +1141,10 @@
     "named": false
   },
   {
+    "type": "attribute",
+    "named": true
+  },
+  {
     "type": "b-and",
     "named": false
   },
@@ -1132,6 +1155,10 @@
   {
     "type": "b-xor",
     "named": false
+  },
+  {
+    "type": "conditional",
+    "named": true
   },
   {
     "type": "ends with",
@@ -1180,6 +1207,10 @@
   {
     "type": "or",
     "named": false
+  },
+  {
+    "type": "repeat",
+    "named": true
   },
   {
     "type": "starts with",
