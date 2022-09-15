@@ -1,4 +1,4 @@
-const REGEX_NAME = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]+/;
+const REGEX_NAME = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
 const REGEX_STRING =
   /"([^#"\\\\]*(?:\\\\.[^#"\\\\]*)*)"|\'([^\'\\\\]*(?:\\\\.[^\'\\\\]*)*)\'/;
 const REGEX_NUMBER = /[0-9]+(?:\.[0-9]+)?([Ee][\+\-][0-9]+)?/;
@@ -12,17 +12,58 @@ module.exports = grammar({
   rules: {
     template: ($) =>
       repeat(
-        choice($.block_directive, $.output_directive, $.comment, $.content)
+        choice($.statement_directive, $.output_directive, $.comment, $.content)
       ),
 
     content: () => prec.right(repeat1(/[^\{]+|\{/)),
 
     comment: () => seq('{#', /[^#]*\#+([^\}#][^#]*\#+)*/, '}'),
 
-    block_directive: ($) =>
-      seq(choice('{%', '{%-', '{%~'), $.block_code, choice('%}', '-%}', '~%}')),
+    statement_directive: ($) =>
+      seq(choice('{%', '{%-', '{%~'), $._statement, choice('%}', '-%}', '~%}')),
 
-    block_code: () => repeat1(/[^%-~]+|[%-~]/),
+    _statement: ($) =>
+      choice(
+        $.assignment_statement,
+        $.for_statement,
+        $.if_statement,
+        $.include_statement,
+        $.tag_statement
+      ),
+
+    assignment_statement: ($) =>
+      seq(
+        alias('set', $.keyword),
+        alias($.identifier, $.variable),
+        '=',
+        $._expression
+      ),
+
+    for_statement: ($) =>
+      seq(
+        alias('for', $.keyword),
+        alias($._name, $.variable),
+        alias('in', $.keyword),
+        $._expression
+      ),
+
+    if_statement: ($) => seq(alias('if', $.keyword), $._expression),
+
+    tag_statement: ($) =>
+      seq(alias($._name, $.tag), repeat(prec.left($._expression))),
+
+    include_statement: ($) =>
+      seq(
+        alias('include', $.tag),
+        $._expression,
+        repeat(
+          choice(
+            seq(alias('with', $.keyword), $._expression),
+            alias('only', $.keyword),
+            alias('ignore missing', $.keyword)
+          )
+        )
+      ),
 
     output_directive: ($) =>
       seq(
@@ -95,7 +136,9 @@ module.exports = grammar({
     argument_name: () => seq(REGEX_NAME, '='),
 
     filter: ($) =>
-      seq(alias($.identifier, $.filter_identifier), optional($.arguments)),
+      prec.left(
+        seq(alias($.identifier, $.filter_identifier), optional($.arguments))
+      ),
 
     binary_expression: ($) =>
       prec.right(
