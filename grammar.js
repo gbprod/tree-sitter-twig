@@ -28,6 +28,8 @@ module.exports = grammar({
         $.for_statement,
         $.if_statement,
         $.macro_statement,
+        $.import_statement,
+        $.from_statement,
 
         alias($.include_statement, $.tag_statement),
         alias($.with_statement, $.tag_statement),
@@ -90,6 +92,29 @@ module.exports = grammar({
       seq('(', optional(seq($.parameter, repeat(seq(',', $.parameter)))), ')'),
 
     parameter: ($) => seq($._name, optional(seq('=', $._literal))),
+
+    import_statement: ($) =>
+      seq(
+        alias('import', $.tag),
+        $._expression,
+        alias('as', $.keyword),
+        alias($._name, $.name)
+      ),
+
+    from_statement: ($) =>
+      seq(
+        alias('from', $.tag),
+        $._expression,
+        alias('import', $.keyword),
+        alias($._name, $.name),
+        optional(
+          seq(
+            alias('as', $.keyword),
+            alias($._name, $.name),
+            repeat(seq(',', alias($._name, $.name)))
+          )
+        )
+      ),
 
     output_directive: ($) =>
       seq(

@@ -233,3 +233,58 @@ macro
             (parameter
               (number)))))
       (content))
+
+======
+import
+======
+
+{% import "forms.html" as forms %}
+
+---
+
+    (template
+      (statement_directive
+        (import_statement
+          (tag)
+          (string)
+          (keyword)
+          (name)))
+      (content))
+
+====
+from
+====
+
+{% from "macros.twig" import hello %}
+
+---
+
+(template
+ (statement_directive
+  (from_statement
+   (tag)
+   (string)
+   (keyword)
+   (name)))
+ (content))
+
+
+============
+from with as
+============
+
+{% from 'forms.html' import input as input_field, textarea %}
+
+---
+
+    (template
+      (statement_directive
+        (from_statement
+          (tag)
+          (string)
+          (keyword)
+          (name)
+          (keyword)
+          (name)
+          (name)))
+      (content))
