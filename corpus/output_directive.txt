@@ -316,3 +316,29 @@ Ternary
           (string)
           (string)))
       (content))
+
+=====
+arrow
+=====
+
+{{ people|map(p => "ezfze")|join(', ') }}
+
+---
+
+    (template
+      (output_directive
+        (variable)
+        (filter
+          (filter_identifier)
+          (arguments
+            (argument
+              (arrow_function
+                (name)
+                (string)))))
+        (filter
+          (filter_identifier)
+          (arguments
+            (argument
+              (argument_value
+                (string))))))
+      (content))

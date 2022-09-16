@@ -188,7 +188,49 @@ module.exports = grammar({
 
     filter: ($) =>
       prec.left(
-        seq(alias($.identifier, $.filter_identifier), optional($.arguments))
+        seq(
+          alias($.identifier, $.filter_identifier),
+          optional(alias($.filter_arguments, $.arguments))
+        )
+      ),
+
+    filter_arguments: ($) =>
+      seq(
+        '(',
+        optional(
+          seq(
+            alias($.filter_argument, $.argument),
+            repeat(seq(',', alias($.filter_argument, $.argument)))
+          )
+        ),
+        ')'
+      ),
+
+    filter_argument: ($) =>
+      seq(
+        optional($.argument_name),
+        choice($.arrow_function, alias($._expression, $.argument_value))
+      ),
+
+    arrow_function: ($) =>
+      prec(100,
+        seq(
+          choice(
+            alias($._name, $.name),
+            seq(
+              '(',
+              optional(
+                seq(
+                  alias($._name, $.name),
+                  repeat(seq(',', alias($._name, $.name)))
+                )
+              ),
+              ')'
+            )
+          ),
+          '=>',
+          $._expression
+        )
       ),
 
     binary_expression: ($) =>
