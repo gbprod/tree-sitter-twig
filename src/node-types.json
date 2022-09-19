@@ -295,6 +295,10 @@
       "required": true,
       "types": [
         {
+          "type": "arguments",
+          "named": true
+        },
+        {
           "type": "array",
           "named": true
         },
@@ -336,6 +340,10 @@
         },
         {
           "type": "ternary_expression",
+          "named": true
+        },
+        {
+          "type": "test",
           "named": true
         },
         {
@@ -1439,6 +1447,10 @@
   },
   {
     "type": "string",
+    "named": true
+  },
+  {
+    "type": "test",
     "named": true
   },
   {

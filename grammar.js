@@ -1,10 +1,9 @@
 const REGEX_NAME = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
+const REGEX_TEST_NAME =
+  /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\s\x7f-\xff]*[a-zA-Z_\x7f-\xff]/;
 const REGEX_STRING =
   /"([^#"\\\\]*(?:\\\\.[^#"\\\\]*)*)"|\'([^\'\\\\]*(?:\\\\.[^\'\\\\]*)*)\'/;
 const REGEX_NUMBER = /[0-9]+(?:\.[0-9]+)?([Ee][\+\-][0-9]+)?/;
-// const REGEX_DQ_STRING_DELIM = /"/;
-// const REGEX_DQ_STRING_PART = /[^#"\\\\]*(?:(?:\\\\.|#(?!\{))[^#"\\\\]*)*/;
-// const PUNCTUATION = '()[]{}?:.,|';
 
 module.exports = grammar({
   name: 'twig',
@@ -213,7 +212,8 @@ module.exports = grammar({
       ),
 
     arrow_function: ($) =>
-      prec(100,
+      prec(
+        100,
         seq(
           choice(
             alias($._name, $.name),
@@ -235,7 +235,13 @@ module.exports = grammar({
 
     binary_expression: ($) =>
       prec.right(
-        seq($._expression, alias($.binary_operator, $.operator), $._expression)
+        seq(
+          $._expression,
+          choice(
+            seq(alias($.binary_operator, $.operator), $._expression),
+            seq(alias($.test_operator, $.operator), $._test)
+          )
+        )
       ),
 
     binary_operator: () =>
@@ -265,8 +271,6 @@ module.exports = grammar({
         '/',
         '//',
         '%',
-        'is',
-        'is not',
         '**',
         '??',
         '?:'
@@ -279,5 +283,10 @@ module.exports = grammar({
 
     ternary_expression: ($) =>
       prec.left(seq($._expression, '?', $._expression, ':', $._expression)),
+
+    test_operator: () => choice('is', 'is not'),
+
+    _test: ($) =>
+      prec.left(seq(alias(REGEX_TEST_NAME, $.test), optional($.arguments))),
   },
 });

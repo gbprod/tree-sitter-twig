@@ -289,3 +289,67 @@ from with as
           (name)))
       (content))
 
+=======
+same as
+=======
+
+{% if foo.attribute is same as(false) %}
+
+---
+
+    (template
+      (statement_directive
+        (if_statement
+          (conditional)
+          (binary_expression
+            (variable)
+            (operator)
+            (test)
+            (arguments
+              (argument
+                (argument_value
+                  (boolean)))))))
+      (content))
+
+========
+constant
+========
+
+{% if post.status is constant('PUBLISHED', post) %}
+
+---
+
+    (template
+      (statement_directive
+        (if_statement
+          (conditional)
+          (binary_expression
+            (variable)
+            (operator)
+            (test)
+            (arguments
+              (argument
+                (argument_value
+                  (string)))
+              (argument
+                (argument_value
+                  (variable)))))))
+      (content))
+
+=====
+empty
+=====
+
+{% if foo is not empty %}
+
+---
+
+    (template
+      (statement_directive
+        (if_statement
+          (conditional)
+          (binary_expression
+            (variable)
+            (operator)
+            (test))))
+      (content))
