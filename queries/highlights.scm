@@ -5,6 +5,7 @@
 (test) @function.builtin
 (variable) @variable
 (string) @string
+(interpolated_string) @string
 (operator) @operator
 (number) @number
 (boolean) @constant.builtin
@@ -38,7 +39,9 @@
     "?"
     ":"
     "="
- ] @punctuation.delimiter
+] @punctuation.delimiter
+
+(interpolated_string ["#{" "}"] @punctuation.delimiter)
 
 [
     "("

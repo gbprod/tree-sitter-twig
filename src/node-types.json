@@ -60,6 +60,10 @@
           "named": true
         },
         {
+          "type": "interpolated_string",
+          "named": true
+        },
+        {
           "type": "null",
           "named": true
         },
@@ -134,6 +138,10 @@
           "named": true
         },
         {
+          "type": "interpolated_string",
+          "named": true
+        },
+        {
           "type": "null",
           "named": true
         },
@@ -190,6 +198,10 @@
         },
         {
           "type": "hash",
+          "named": true
+        },
+        {
+          "type": "interpolated_string",
           "named": true
         },
         {
@@ -253,6 +265,10 @@
         },
         {
           "type": "hash",
+          "named": true
+        },
+        {
+          "type": "interpolated_string",
           "named": true
         },
         {
@@ -320,6 +336,10 @@
         },
         {
           "type": "hash",
+          "named": true
+        },
+        {
+          "type": "interpolated_string",
           "named": true
         },
         {
@@ -429,6 +449,10 @@
           "named": true
         },
         {
+          "type": "interpolated_string",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -493,6 +517,10 @@
         },
         {
           "type": "hash",
+          "named": true
+        },
+        {
+          "type": "interpolated_string",
           "named": true
         },
         {
@@ -610,6 +638,10 @@
           "named": true
         },
         {
+          "type": "interpolated_string",
+          "named": true
+        },
+        {
           "type": "name",
           "named": true
         },
@@ -670,6 +702,10 @@
         },
         {
           "type": "hash",
+          "named": true
+        },
+        {
+          "type": "interpolated_string",
           "named": true
         },
         {
@@ -736,6 +772,10 @@
           "named": true
         },
         {
+          "type": "interpolated_string",
+          "named": true
+        },
+        {
           "type": "null",
           "named": true
         },
@@ -795,6 +835,10 @@
           "named": true
         },
         {
+          "type": "interpolated_string",
+          "named": true
+        },
+        {
           "type": "keyword",
           "named": true
         },
@@ -816,6 +860,69 @@
         },
         {
           "type": "tag",
+          "named": true
+        },
+        {
+          "type": "ternary_expression",
+          "named": true
+        },
+        {
+          "type": "unary_expression",
+          "named": true
+        },
+        {
+          "type": "variable",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "interpolated_string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "array",
+          "named": true
+        },
+        {
+          "type": "binary_expression",
+          "named": true
+        },
+        {
+          "type": "boolean",
+          "named": true
+        },
+        {
+          "type": "filter",
+          "named": true
+        },
+        {
+          "type": "function_call",
+          "named": true
+        },
+        {
+          "type": "hash",
+          "named": true
+        },
+        {
+          "type": "interpolated_string",
+          "named": true
+        },
+        {
+          "type": "null",
+          "named": true
+        },
+        {
+          "type": "number",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         },
         {
@@ -904,6 +1011,10 @@
           "named": true
         },
         {
+          "type": "interpolated_string",
+          "named": true
+        },
+        {
           "type": "null",
           "named": true
         },
@@ -948,6 +1059,10 @@
         },
         {
           "type": "hash",
+          "named": true
+        },
+        {
+          "type": "interpolated_string",
           "named": true
         },
         {
@@ -1061,6 +1176,10 @@
           "named": true
         },
         {
+          "type": "interpolated_string",
+          "named": true
+        },
+        {
           "type": "null",
           "named": true
         },
@@ -1151,6 +1270,10 @@
           "named": true
         },
         {
+          "type": "interpolated_string",
+          "named": true
+        },
+        {
           "type": "null",
           "named": true
         },
@@ -1210,6 +1333,10 @@
           "named": true
         },
         {
+          "type": "interpolated_string",
+          "named": true
+        },
+        {
           "type": "null",
           "named": true
         },
@@ -1247,6 +1374,14 @@
   },
   {
     "type": "!=",
+    "named": false
+  },
+  {
+    "type": "\"",
+    "named": false
+  },
+  {
+    "type": "#{",
     "named": false
   },
   {
@@ -1359,6 +1494,18 @@
   },
   {
     "type": "[",
+    "named": false
+  },
+  {
+    "type": "\\\"",
+    "named": false
+  },
+  {
+    "type": "\\#",
+    "named": false
+  },
+  {
+    "type": "\\\\",
     "named": false
   },
   {

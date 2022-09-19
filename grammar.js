@@ -1,8 +1,8 @@
 const REGEX_NAME = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
 const REGEX_TEST_NAME =
   /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\s\x7f-\xff]*[a-zA-Z_\x7f-\xff]/;
-const REGEX_STRING =
-  /"([^#"\\\\]*(?:\\\\.[^#"\\\\]*)*)"|\'([^\'\\\\]*(?:\\\\.[^\'\\\\]*)*)\'/;
+const REGEX_STRING_SIMPLE_QUOTED = /\'([^\'\\\\]*(?:\\\\.[^\'\\\\]*)*)\'/;
+const REGEX_STRING_INTERPOLATED = /[^#"\\\\]+/;
 const REGEX_NUMBER = /[0-9]+(?:\.[0-9]+)?([Ee][\+\-][0-9]+)?/;
 
 module.exports = grammar({
@@ -142,11 +142,31 @@ module.exports = grammar({
     _name: () => REGEX_NAME,
 
     _literal: ($) =>
-      choice($.string, $.number, $.array, $.hash, $.boolean, $.null),
+      choice($._string, $.number, $.array, $.hash, $.boolean, $.null),
 
     boolean: () => choice('true', 'false'),
     null: () => 'null',
-    string: () => REGEX_STRING,
+    _string: ($) =>
+      choice(
+        alias(REGEX_STRING_SIMPLE_QUOTED, $.string),
+        $.interpolated_string
+      ),
+
+    interpolated_string: ($) =>
+      seq(
+        '"',
+        repeat1(
+          choice(
+            '\\"',
+            '\\#',
+            '\\\\',
+            REGEX_STRING_INTERPOLATED,
+            seq('#{', $._expression, '}')
+          )
+        ),
+        '"'
+      ),
+
     number: () => REGEX_NUMBER,
     array: ($) =>
       seq(
@@ -167,7 +187,7 @@ module.exports = grammar({
       seq(
         choice(
           seq('(', $._expression, ')'),
-          $.string,
+          $._string,
           $.number,
           alias($._name, $.name)
         ),

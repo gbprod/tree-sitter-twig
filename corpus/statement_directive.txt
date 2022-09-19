@@ -137,7 +137,7 @@ extends
       (statement_directive
         (tag_statement
           (tag)
-          (string)))
+          (interpolated_string)))
       (content))
 
 =====
@@ -154,7 +154,7 @@ Cache
       (statement_directive
         (tag_statement
           (tag)
-          (string)
+          (interpolated_string)
           (function_call
             (function_identifier)
             (arguments
@@ -229,7 +229,7 @@ macro
             (parameter)
             (parameter)
             (parameter
-              (string))
+              (interpolated_string))
             (parameter
               (number)))))
       (content))
@@ -246,7 +246,7 @@ import
       (statement_directive
         (import_statement
           (tag)
-          (string)
+          (interpolated_string)
           (keyword)
           (name)))
       (content))
@@ -263,7 +263,7 @@ from
  (statement_directive
   (from_statement
    (tag)
-   (string)
+   (interpolated_string)
    (keyword)
    (name)))
  (content))

@@ -247,7 +247,7 @@ Arrays
   (template
    (output_directive
     (array
-      (string)
+      (interpolated_string)
       (function_call
         (function_identifier)
         (arguments))
@@ -334,7 +334,7 @@ arrow
             (argument
               (arrow_function
                 (name)
-                (string)))))
+                (interpolated_string)))))
         (filter
           (filter_identifier)
           (arguments

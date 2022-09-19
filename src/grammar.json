@@ -782,7 +782,7 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "string"
+          "name": "_string"
         },
         {
           "type": "SYMBOL",
@@ -823,9 +823,77 @@
       "type": "STRING",
       "value": "null"
     },
-    "string": {
-      "type": "PATTERN",
-      "value": "\"([^#\"\\\\\\\\]*(?:\\\\\\\\.[^#\"\\\\\\\\]*)*)\"|\\'([^\\'\\\\\\\\]*(?:\\\\\\\\.[^\\'\\\\\\\\]*)*)\\'"
+    "_string": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "\\'([^\\'\\\\\\\\]*(?:\\\\\\\\.[^\\'\\\\\\\\]*)*)\\'"
+          },
+          "named": true,
+          "value": "string"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "interpolated_string"
+        }
+      ]
+    },
+    "interpolated_string": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "REPEAT1",
+          "content": {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "\\\""
+              },
+              {
+                "type": "STRING",
+                "value": "\\#"
+              },
+              {
+                "type": "STRING",
+                "value": "\\\\"
+              },
+              {
+                "type": "PATTERN",
+                "value": "[^#\"\\\\\\\\]+"
+              },
+              {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "#{"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_expression"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": "}"
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        }
+      ]
     },
     "number": {
       "type": "PATTERN",
@@ -974,7 +1042,7 @@
             },
             {
               "type": "SYMBOL",
-              "name": "string"
+              "name": "_string"
             },
             {
               "type": "SYMBOL",
