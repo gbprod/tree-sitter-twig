@@ -301,7 +301,7 @@ same as
       (statement_directive
         (if_statement
           (conditional)
-          (binary_expression
+          (test_expression
             (variable)
             (operator)
             (test)
@@ -323,7 +323,7 @@ constant
       (statement_directive
         (if_statement
           (conditional)
-          (binary_expression
+          (test_expression
             (variable)
             (operator)
             (test)
@@ -348,8 +348,30 @@ empty
       (statement_directive
         (if_statement
           (conditional)
-          (binary_expression
+          (test_expression
             (variable)
             (operator)
             (test))))
       (content))
+
+===============
+test and binary
+===============
+
+{% if prototype is defined and not prototype.rendered %}
+
+---
+
+(template
+ (statement_directive
+  (if_statement
+   (conditional)
+   (test_expression
+    (variable)
+    (operator)
+    (test)
+    (binary_operator)
+    (unary_expression
+     (operator)
+     (variable)))))
+ (content))

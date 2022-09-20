@@ -1,9 +1,9 @@
 const REGEX_NAME = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
-const REGEX_TEST_NAME =
-  /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\s\x7f-\xff]*[a-zA-Z_\x7f-\xff]/;
 const REGEX_STRING_SIMPLE_QUOTED = /\'([^\'\\\\]*(?:\\\\.[^\'\\\\]*)*)\'/;
 const REGEX_STRING_INTERPOLATED = /[^#"\\\\]+/;
 const REGEX_NUMBER = /[0-9]+(?:\.[0-9]+)?([Ee][\+\-][0-9]+)?/;
+const REGEX_TEST_NAME =
+  /[a-zA-Z_\x7f-\xff][\sa-zA-Z0-9_\x7f-\xff]*[a-zA-Z_\x7f-\xff]/;
 
 module.exports = grammar({
   name: 'twig',
@@ -132,13 +132,30 @@ module.exports = grammar({
             seq('(', $._expression, ')'),
             $.unary_expression,
             $.binary_expression,
+            $.test_expression,
             $.ternary_expression
           ),
           optional(repeat(seq('|', $.filter)))
         )
       ),
 
-    identifier: ($) => seq($._name, repeat(seq('.', $._name))),
+    identifier: ($) =>
+      prec.left(
+        seq(
+          $._name,
+          repeat(seq('.', $._name)),
+          optional(
+            seq(
+              '[',
+              choice(
+                $._expression,
+                seq(optional($._expression), ':', optional($._expression))
+              ),
+              ']'
+            )
+          )
+        )
+      ),
     _name: () => REGEX_NAME,
 
     _literal: ($) =>
@@ -178,6 +195,7 @@ module.exports = grammar({
       seq(
         '{',
         optional(seq($._hash_entry, repeat(seq(',', $._hash_entry)))),
+        optional(','),
         '}'
       ),
     _hash_entry: ($) =>
@@ -257,9 +275,22 @@ module.exports = grammar({
       prec.right(
         seq(
           $._expression,
+          seq(alias($.binary_operator, $.operator), $._expression)
+        )
+      ),
+
+    test_expression: ($) =>
+      prec.right(
+        seq(
+          $._expression,
+          alias($.test_operator, $.operator),
           choice(
-            seq(alias($.binary_operator, $.operator), $._expression),
-            seq(alias($.test_operator, $.operator), $._test)
+            seq(alias(repeat1(REGEX_NAME), $.test), optional($.arguments)),
+            seq(
+              alias(repeat1(REGEX_NAME), $.test),
+              optional($.arguments),
+              seq($.binary_operator, $._expression)
+            )
           )
         )
       ),
@@ -305,8 +336,5 @@ module.exports = grammar({
       prec.left(seq($._expression, '?', $._expression, ':', $._expression)),
 
     test_operator: () => choice('is', 'is not'),
-
-    _test: ($) =>
-      prec.left(seq(alias(REGEX_TEST_NAME, $.test), optional($.arguments))),
   },
 });

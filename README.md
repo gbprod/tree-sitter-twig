@@ -18,7 +18,7 @@ parser_config.twig = {
         files = { "src/parser.c" },
     },
     filetype = "html.twig",
-	maintainers = {  "@gbprod" },
+    maintainers = {  "@gbprod" },
 }
 ```
 
