@@ -432,3 +432,18 @@ Array slice 3
     (variable
       (number)))
   (content))
+
+============
+Fake ternary
+============
+
+{{ test ? 'ok' }}
+
+---
+
+(template
+  (output_directive
+    (ternary_expression
+      (variable)
+      (string)))
+  (content))

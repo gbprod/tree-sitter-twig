@@ -6,13 +6,13 @@ Set
 
 ---
 
-    (template
-      (statement_directive
-        (assignment_statement
-          (keyword)
-          (variable)
-          (string)))
-      (content))
+(template
+  (statement_directive
+    (assignment_statement
+      (keyword)
+      (variable)
+      (string)))
+  (content))
 
 =====
 Apply
@@ -24,16 +24,16 @@ Apply
 
 ---
 
-    (template
-      (statement_directive
-        (tag_statement
-          (tag)
-          (variable)))
-      (content)
-      (statement_directive
-        (tag_statement
-          (tag)))
-      (content))
+(template
+  (statement_directive
+    (tag_statement
+      (tag)
+      (variable)))
+  (content)
+  (statement_directive
+    (tag_statement
+      (tag)))
+  (content))
 
 ===
 For
@@ -45,28 +45,28 @@ For
 
 ---
 
-    (template
-      (statement_directive
-        (for_statement
-          (repeat)
-          (variable)
-          (keyword)
-          (function_call
-            (function_identifier)
-            (arguments
-              (argument
-                (argument_value
-                  (number)))
-              (argument
-                (argument_value
-                  (number)))))))
-      (output_directive
-        (variable))
-      (content)
-      (statement_directive
-        (tag_statement
-          (tag)))
-      (content))
+(template
+  (statement_directive
+    (for_statement
+      (repeat)
+      (variable)
+      (keyword)
+      (function_call
+        (function_identifier)
+        (arguments
+          (argument
+            (argument_value
+              (number)))
+          (argument
+            (argument_value
+              (number)))))))
+  (output_directive
+    (variable))
+  (content)
+  (statement_directive
+    (tag_statement
+      (tag)))
+  (content))
 
 ===
 if
@@ -79,21 +79,21 @@ if
 
 ---
 
-    (template
-      (statement_directive
-        (if_statement
-          (conditional)
-          (binary_expression
-            (variable)
-            (filter
-              (filter_identifier))
-            (operator)
-            (number))))
-      (content)
-      (statement_directive
-        (tag_statement
-          (tag)))
-      (content))
+(template
+  (statement_directive
+    (if_statement
+      (conditional)
+      (binary_expression
+        (variable)
+        (filter
+          (filter_identifier))
+        (operator)
+        (number))))
+  (content)
+  (statement_directive
+    (tag_statement
+      (tag)))
+  (content))
 
 =====
 Block
@@ -106,24 +106,24 @@ Block
 
 ---
 
-    (template
-      (statement_directive
-        (tag_statement
-          (tag)
-          (variable)))
-      (content)
-      (statement_directive
-        (tag_statement
-          (tag)
-          (variable)))
-      (statement_directive
-        (tag_statement
-          (tag)))
-      (content)
-      (statement_directive
-        (tag_statement
-          (tag)))
-      (content))
+(template
+  (statement_directive
+    (tag_statement
+      (tag)
+      (variable)))
+  (content)
+  (statement_directive
+    (tag_statement
+      (tag)
+      (variable)))
+  (statement_directive
+    (tag_statement
+      (tag)))
+  (content)
+  (statement_directive
+    (tag_statement
+      (tag)))
+  (content))
 
 =======
 extends
@@ -133,12 +133,12 @@ extends
 
 ---
 
-    (template
-      (statement_directive
-        (tag_statement
-          (tag)
-          (interpolated_string)))
-      (content))
+(template
+  (statement_directive
+    (tag_statement
+      (tag)
+      (interpolated_string)))
+  (content))
 
 =====
 Cache
@@ -150,24 +150,24 @@ Cache
 
 ---
 
-    (template
-      (statement_directive
-        (tag_statement
-          (tag)
-          (interpolated_string)
-          (function_call
-            (function_identifier)
-            (arguments
-              (argument
-                (argument_value
-                  (array
-                    (string)
-                    (string))))))))
-      (content)
-      (statement_directive
-        (tag_statement
-          (tag)))
-      (content))
+(template
+  (statement_directive
+    (tag_statement
+      (tag)
+      (interpolated_string)
+      (function_call
+        (function_identifier)
+        (arguments
+          (argument
+            (argument_value
+              (array
+                (string)
+                (string))))))))
+  (content)
+  (statement_directive
+    (tag_statement
+      (tag)))
+  (content))
 
 =======
 Include
@@ -177,20 +177,20 @@ Include
 
 ---
 
-    (template
-      (statement_directive
-        (tag_statement
-          (tag)
-          (string)
-          (attribute)
-          (attribute)
-          (hash
-            (hash_key
-              (string))
-            (hash_value
-              (string)))
-          (attribute)))
-      (content))
+(template
+  (statement_directive
+    (tag_statement
+      (tag)
+      (string)
+      (attribute)
+      (attribute)
+      (hash
+        (hash_key
+          (string))
+        (hash_value
+          (string)))
+      (attribute)))
+  (content))
 
 ====
 with
@@ -200,17 +200,17 @@ with
 
 ---
 
-    (template
-      (statement_directive
-        (tag_statement
-          (tag)
-          (hash
-            (hash_key
-              (name))
-            (hash_value
-              (number)))
-          (attribute)))
-      (content))
+(template
+  (statement_directive
+    (tag_statement
+      (tag)
+      (hash
+        (hash_key
+          (name))
+        (hash_value
+          (number)))
+      (attribute)))
+  (content))
 
 =====
 macro
@@ -220,19 +220,19 @@ macro
 
 ---
 
-    (template
-      (statement_directive
-        (macro_statement
-          (tag)
-          (method)
-          (parameters
-            (parameter)
-            (parameter)
-            (parameter
-              (interpolated_string))
-            (parameter
-              (number)))))
-      (content))
+(template
+  (statement_directive
+    (macro_statement
+      (tag)
+      (method)
+      (parameters
+        (parameter)
+        (parameter)
+        (parameter
+          (interpolated_string))
+        (parameter
+          (number)))))
+  (content))
 
 ======
 import
@@ -242,14 +242,14 @@ import
 
 ---
 
-    (template
-      (statement_directive
-        (import_statement
-          (tag)
-          (interpolated_string)
-          (keyword)
-          (name)))
-      (content))
+(template
+  (statement_directive
+    (import_statement
+      (tag)
+      (interpolated_string)
+      (keyword)
+      (name)))
+  (content))
 
 ====
 from
@@ -319,22 +319,22 @@ constant
 
 ---
 
-    (template
-      (statement_directive
-        (if_statement
-          (conditional)
-          (test_expression
-            (variable)
-            (operator)
-            (test)
-            (arguments
-              (argument
-                (argument_value
-                  (string)))
-              (argument
-                (argument_value
-                  (variable)))))))
-      (content))
+(template
+  (statement_directive
+    (if_statement
+      (conditional)
+      (test_expression
+        (variable)
+        (operator)
+        (test)
+        (arguments
+          (argument
+            (argument_value
+              (string)))
+          (argument
+            (argument_value
+              (variable)))))))
+  (content))
 
 =====
 empty
@@ -344,15 +344,15 @@ empty
 
 ---
 
-    (template
-      (statement_directive
-        (if_statement
-          (conditional)
-          (test_expression
-            (variable)
-            (operator)
-            (test))))
-      (content))
+(template
+  (statement_directive
+    (if_statement
+      (conditional)
+      (test_expression
+        (variable)
+        (operator)
+        (test))))
+  (content))
 
 ===============
 test and binary
@@ -375,3 +375,21 @@ test and binary
      (operator)
      (variable)))))
  (content))
+
+============
+multiple for
+============
+
+{% for group_label, choice in options %}
+
+---
+
+(template
+  (statement_directive
+    (for_statement
+      (repeat)
+      (variable)
+      (variable)
+      (keyword)
+      (variable)))
+  (content))

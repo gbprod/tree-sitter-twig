@@ -2,8 +2,6 @@ const REGEX_NAME = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
 const REGEX_STRING_SIMPLE_QUOTED = /\'([^\'\\\\]*(?:\\\\.[^\'\\\\]*)*)\'/;
 const REGEX_STRING_INTERPOLATED = /[^#"\\\\]+/;
 const REGEX_NUMBER = /[0-9]+(?:\.[0-9]+)?([Ee][\+\-][0-9]+)?/;
-const REGEX_TEST_NAME =
-  /[a-zA-Z_\x7f-\xff][\sa-zA-Z0-9_\x7f-\xff]*[a-zA-Z_\x7f-\xff]/;
 
 module.exports = grammar({
   name: 'twig',
@@ -46,7 +44,10 @@ module.exports = grammar({
     for_statement: ($) =>
       seq(
         alias('for', $.repeat),
-        alias($._name, $.variable),
+        seq(
+          alias($._name, $.variable),
+          repeat(seq(',', alias($._name, $.variable)))
+        ),
         alias('in', $.keyword),
         $._expression
       ),
@@ -333,7 +334,14 @@ module.exports = grammar({
     unary_operator: () => choice('-', '+', 'not'),
 
     ternary_expression: ($) =>
-      prec.left(seq($._expression, '?', $._expression, ':', $._expression)),
+      prec.left(
+        seq(
+          $._expression,
+          '?',
+          $._expression,
+          optional(seq(':', $._expression))
+        )
+      ),
 
     test_operator: () => choice('is', 'is not'),
   },
