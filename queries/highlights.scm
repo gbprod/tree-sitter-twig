@@ -41,7 +41,10 @@
     "="
 ] @punctuation.delimiter
 
-(interpolated_string ["#{" "}"] @punctuation.delimiter)
+(interpolated_string [
+    "#{" 
+    "}"
+] @punctuation.delimiter)
 
 [
     "("
@@ -49,5 +52,8 @@
     "["
     "]"
     "{"
-    "}"
 ] @punctuation.bracket
+
+(hash [
+    "}"
+] @punctuation.bracket)

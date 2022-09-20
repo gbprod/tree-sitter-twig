@@ -2,6 +2,8 @@
 
 [Twig](https://twig.symfony.com/) grammar for [tree-sitter](https://github.com/tree-sitter/tree-sitter).
 
+[![Build/test](https://github.com/gbprod/tree-sitter-twig/actions/workflows/ci.yml/badge.svg)](https://github.com/gbprod/tree-sitter-twig/actions/workflows/ci.yml)
+
 ## Installation
 
 ### Neovim
