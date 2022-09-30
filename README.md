@@ -19,7 +19,7 @@ parser_config.twig = {
         url = "https://github.com/gbprod/tree-sitter-twig",
         files = { "src/parser.c" },
     },
-    filetype = "html.twig",
+    filetype = "twig",
     maintainers = {  "@gbprod" },
 }
 ```
