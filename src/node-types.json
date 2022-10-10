@@ -1337,6 +1337,10 @@
           "named": true
         },
         {
+          "type": "conditional",
+          "named": true
+        },
+        {
           "type": "filter",
           "named": true
         },
@@ -1358,6 +1362,10 @@
         },
         {
           "type": "number",
+          "named": true
+        },
+        {
+          "type": "repeat",
           "named": true
         },
         {
