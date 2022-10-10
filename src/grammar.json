@@ -285,13 +285,36 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "SYMBOL",
-            "name": "_name"
-          },
-          "named": true,
-          "value": "tag"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "STRING",
+                "value": "endif"
+              },
+              "named": true,
+              "value": "conditional"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "STRING",
+                "value": "endfor"
+              },
+              "named": true,
+              "value": "repeat"
+            },
+            {
+              "type": "ALIAS",
+              "content": {
+                "type": "SYMBOL",
+                "name": "_name"
+              },
+              "named": true,
+              "value": "tag"
+            }
+          ]
         },
         {
           "type": "REPEAT",

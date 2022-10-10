@@ -9,9 +9,12 @@ DEFS_Debug := \
 	'-DV8_DEPRECATION_WARNINGS=1' \
 	'-DV8_DEPRECATION_WARNINGS' \
 	'-DV8_IMMINENT_DEPRECATION_WARNINGS' \
+	'-D_GLIBCXX_USE_CXX11_ABI=1' \
 	'-D_LARGEFILE_SOURCE' \
 	'-D_FILE_OFFSET_BITS=64' \
 	'-D__STDC_FORMAT_MACROS' \
+	'-DOPENSSL_NO_PINSHARED' \
+	'-DOPENSSL_THREADS' \
 	'-DBUILDING_NODE_EXTENSION' \
 	'-DDEBUG' \
 	'-D_DEBUG' \
@@ -19,12 +22,12 @@ DEFS_Debug := \
 
 # Flags passed to all source files.
 CFLAGS_Debug := \
+	-fPIC \
 	-pthread \
 	-Wall \
 	-Wextra \
 	-Wno-unused-parameter \
-	-m32 \
-	-fPIC \
+	-m64 \
 	-g \
 	-O0
 
@@ -36,16 +39,16 @@ CFLAGS_C_Debug := \
 CFLAGS_CC_Debug := \
 	-fno-rtti \
 	-fno-exceptions \
-	-std=gnu++1y
+	-std=gnu++17
 
 INCS_Debug := \
-	-I/home/gilles/.cache/node-gyp/12.22.12/include/node \
-	-I/home/gilles/.cache/node-gyp/12.22.12/src \
-	-I/home/gilles/.cache/node-gyp/12.22.12/deps/openssl/config \
-	-I/home/gilles/.cache/node-gyp/12.22.12/deps/openssl/openssl/include \
-	-I/home/gilles/.cache/node-gyp/12.22.12/deps/uv/include \
-	-I/home/gilles/.cache/node-gyp/12.22.12/deps/zlib \
-	-I/home/gilles/.cache/node-gyp/12.22.12/deps/v8/include \
+	-I/home/gilles/.cache/node-gyp/18.9.1/include/node \
+	-I/home/gilles/.cache/node-gyp/18.9.1/src \
+	-I/home/gilles/.cache/node-gyp/18.9.1/deps/openssl/config \
+	-I/home/gilles/.cache/node-gyp/18.9.1/deps/openssl/openssl/include \
+	-I/home/gilles/.cache/node-gyp/18.9.1/deps/uv/include \
+	-I/home/gilles/.cache/node-gyp/18.9.1/deps/zlib \
+	-I/home/gilles/.cache/node-gyp/18.9.1/deps/v8/include \
 	-I$(srcdir)/node_modules/nan \
 	-I$(srcdir)/src
 
@@ -56,19 +59,22 @@ DEFS_Release := \
 	'-DV8_DEPRECATION_WARNINGS=1' \
 	'-DV8_DEPRECATION_WARNINGS' \
 	'-DV8_IMMINENT_DEPRECATION_WARNINGS' \
+	'-D_GLIBCXX_USE_CXX11_ABI=1' \
 	'-D_LARGEFILE_SOURCE' \
 	'-D_FILE_OFFSET_BITS=64' \
 	'-D__STDC_FORMAT_MACROS' \
+	'-DOPENSSL_NO_PINSHARED' \
+	'-DOPENSSL_THREADS' \
 	'-DBUILDING_NODE_EXTENSION'
 
 # Flags passed to all source files.
 CFLAGS_Release := \
+	-fPIC \
 	-pthread \
 	-Wall \
 	-Wextra \
 	-Wno-unused-parameter \
-	-m32 \
-	-fPIC \
+	-m64 \
 	-O3 \
 	-fno-omit-frame-pointer
 
@@ -80,16 +86,16 @@ CFLAGS_C_Release := \
 CFLAGS_CC_Release := \
 	-fno-rtti \
 	-fno-exceptions \
-	-std=gnu++1y
+	-std=gnu++17
 
 INCS_Release := \
-	-I/home/gilles/.cache/node-gyp/12.22.12/include/node \
-	-I/home/gilles/.cache/node-gyp/12.22.12/src \
-	-I/home/gilles/.cache/node-gyp/12.22.12/deps/openssl/config \
-	-I/home/gilles/.cache/node-gyp/12.22.12/deps/openssl/openssl/include \
-	-I/home/gilles/.cache/node-gyp/12.22.12/deps/uv/include \
-	-I/home/gilles/.cache/node-gyp/12.22.12/deps/zlib \
-	-I/home/gilles/.cache/node-gyp/12.22.12/deps/v8/include \
+	-I/home/gilles/.cache/node-gyp/18.9.1/include/node \
+	-I/home/gilles/.cache/node-gyp/18.9.1/src \
+	-I/home/gilles/.cache/node-gyp/18.9.1/deps/openssl/config \
+	-I/home/gilles/.cache/node-gyp/18.9.1/deps/openssl/openssl/include \
+	-I/home/gilles/.cache/node-gyp/18.9.1/deps/uv/include \
+	-I/home/gilles/.cache/node-gyp/18.9.1/deps/zlib \
+	-I/home/gilles/.cache/node-gyp/18.9.1/deps/v8/include \
 	-I$(srcdir)/node_modules/nan \
 	-I$(srcdir)/src
 
@@ -108,37 +114,37 @@ $(OBJS): GYP_CXXFLAGS := $(DEFS_$(BUILDTYPE)) $(INCS_$(BUILDTYPE))  $(CFLAGS_$(B
 
 # Suffix rules, putting all outputs into $(obj).
 
-$(obj).$(TOOLSET)/$(TARGET)/%.o: $(srcdir)/%.c FORCE_DO_CMD
-	@$(call do_cmd,cc,1)
-
 $(obj).$(TOOLSET)/$(TARGET)/%.o: $(srcdir)/%.cc FORCE_DO_CMD
 	@$(call do_cmd,cxx,1)
 
-# Try building from generated source, too.
-
-$(obj).$(TOOLSET)/$(TARGET)/%.o: $(obj).$(TOOLSET)/%.c FORCE_DO_CMD
+$(obj).$(TOOLSET)/$(TARGET)/%.o: $(srcdir)/%.c FORCE_DO_CMD
 	@$(call do_cmd,cc,1)
+
+# Try building from generated source, too.
 
 $(obj).$(TOOLSET)/$(TARGET)/%.o: $(obj).$(TOOLSET)/%.cc FORCE_DO_CMD
 	@$(call do_cmd,cxx,1)
 
-$(obj).$(TOOLSET)/$(TARGET)/%.o: $(obj)/%.c FORCE_DO_CMD
+$(obj).$(TOOLSET)/$(TARGET)/%.o: $(obj).$(TOOLSET)/%.c FORCE_DO_CMD
 	@$(call do_cmd,cc,1)
 
 $(obj).$(TOOLSET)/$(TARGET)/%.o: $(obj)/%.cc FORCE_DO_CMD
 	@$(call do_cmd,cxx,1)
+
+$(obj).$(TOOLSET)/$(TARGET)/%.o: $(obj)/%.c FORCE_DO_CMD
+	@$(call do_cmd,cc,1)
 
 # End of this set of suffix rules
 ### Rules for final target.
 LDFLAGS_Debug := \
 	-pthread \
 	-rdynamic \
-	-m32
+	-m64
 
 LDFLAGS_Release := \
 	-pthread \
 	-rdynamic \
-	-m32
+	-m64
 
 LIBS :=
 
