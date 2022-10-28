@@ -393,3 +393,53 @@ multiple for
       (keyword)
       (variable)))
   (content))
+
+============
+Empty string
+============
+
+{% set foo = '' %}
+
+---
+
+(template
+  (statement_directive
+    (assignment_statement
+      (keyword)
+      (variable)
+      (string)))
+  (content))
+
+=========================
+Empty interpolated string
+=========================
+
+{% set foo = "" %}
+
+---
+
+(template
+  (statement_directive
+    (assignment_statement
+      (keyword)
+      (variable)
+      (interpolated_string)))
+  (content))
+
+=======================================
+Empty interpolated string w/ expression
+=======================================
+
+{% set foo = "test: #{test}" %}
+
+---
+
+(template
+  (statement_directive
+    (assignment_statement
+      (keyword)
+      (variable)
+      (interpolated_string
+       (variable))))
+  (content))
+

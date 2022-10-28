@@ -116,7 +116,7 @@ module.exports = grammar({
     _string: ($) => choice(alias(REGEX_STRING_SIMPLE_QUOTED, $.string), $.interpolated_string),
 
     interpolated_string: ($) =>
-      seq('"', repeat1(choice('\\"', '\\#', '\\\\', REGEX_STRING_INTERPOLATED, seq('#{', $._expression, '}'))), '"'),
+      seq('"', repeat(choice('\\"', '\\#', '\\\\', REGEX_STRING_INTERPOLATED, seq('#{', $._expression, '}'))), '"'),
 
     number: () => REGEX_NUMBER,
     array: ($) => seq('[', optional(seq($._expression, repeat(seq(',', $._expression)))), ']'),
