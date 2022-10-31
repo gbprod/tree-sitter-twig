@@ -31,6 +31,8 @@ jobs:
 
       - name: Commit generated wasm binding to the gh-pages branch
         run: |
+          git config --global user.email "$(git log --format='%ae' HEAD^!)"
+          git config --global user.name "$(git log --format='%an' HEAD^!)"
           cd ./gh-pages
           git add *.wasm
           git commit -m "Generate WASM binding" || true
