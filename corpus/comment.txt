@@ -1,13 +1,13 @@
-===============
+================================================================================
 Inline comments
-===============
+================================================================================
 
 Lorem {# ipsum #} dolor sit amet, 
 consectetur adipiscing elit, 
 {#sed#} do eiusmod tempor incididunt 
 ut labore et dolore magna aliqua. 
 
----
+--------------------------------------------------------------------------------
 
 (template
   (content)
@@ -16,16 +16,16 @@ ut labore et dolore magna aliqua.
   (comment)
   (content))
 
-==============
+================================================================================
 Block comments
-==============
+================================================================================
 
 Lorem {# ipsum dolor sit amet, 
 consectetur adipiscing elit, 
 sed#} do eiusmod tempor incididunt 
 ut labore et dolore magna aliqua. 
 
----
+--------------------------------------------------------------------------------
 
 (template
   (content)

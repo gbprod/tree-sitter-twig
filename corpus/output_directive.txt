@@ -1,10 +1,10 @@
-===============
+================================================================================
 Simple variable
-===============
+================================================================================
 
 Lorem {{ ipsum }} dolor sit amet
 
----
+--------------------------------------------------------------------------------
 
 (template
   (content)
@@ -12,257 +12,255 @@ Lorem {{ ipsum }} dolor sit amet
     (variable))
   (content))
 
-=============
+================================================================================
 Function call
-=============
+================================================================================
 
 Lorem {{ ipsum() }} dolor sit amet
 
----
+--------------------------------------------------------------------------------
 
 (template
   (content)
   (output_directive
-  (function_call
-    (function_identifier)
-    (arguments)))
+    (function_call
+      (function_identifier)
+      (arguments)))
   (content))
 
-==========================
+================================================================================
 Function call w/ arguments
-==========================
+================================================================================
 
 Lorem {{ ipsum(test, test) }} dolor sit amet
 
----
+--------------------------------------------------------------------------------
 
 (template
   (content)
   (output_directive
-  (function_call
-    (function_identifier)
-    (arguments
-    (argument
-      (argument_value
-      (variable)))
-    (argument
-      (argument_value
-      (variable))))))
+    (function_call
+      (function_identifier)
+      (arguments
+        (argument
+          (argument_value
+            (variable)))
+        (argument
+          (argument_value
+            (variable))))))
   (content))
 
-===================
+================================================================================
 Variable and filter
-===================
+================================================================================
 
 Lorem {{ ipsum | filter }} dolor sit amet
 
----
+--------------------------------------------------------------------------------
 
 (template
   (content)
   (output_directive
-  (variable)
-  (filter
-    (filter_identifier)))
+    (variable)
+    (filter
+      (filter_identifier)))
   (content))
 
-===========================
+================================================================================
 Variable and filter w/ args
-===========================
+================================================================================
 
 Lorem {{ ipsum | filter(arg) }} dolor sit amet
 
----
+--------------------------------------------------------------------------------
 
 (template
   (content)
   (output_directive
-  (variable)
-  (filter
-    (filter_identifier)
-    (arguments
-    (argument
-      (argument_value
-      (variable))))))
+    (variable)
+    (filter
+      (filter_identifier)
+      (arguments
+        (argument
+          (argument_value
+            (variable))))))
   (content))
 
-=============================
+================================================================================
 Variable and filter w/ string
-=============================
+================================================================================
 
 Lorem {{ ipsum | filter('arg') }} dolor sit amet
 
----
+--------------------------------------------------------------------------------
 
 (template
   (content)
   (output_directive
-  (variable)
-  (filter
-    (filter_identifier)
-    (arguments
-    (argument
-      (argument_value
-      (string))))))
+    (variable)
+    (filter
+      (filter_identifier)
+      (arguments
+        (argument
+          (argument_value
+            (string))))))
   (content))
 
-=================
+================================================================================
 string and filter
-=================
+================================================================================
 
 Lorem {{ 'ipsum' | filter }} dolor sit amet
 
----
+--------------------------------------------------------------------------------
 
 (template
   (content)
   (output_directive
-  (string)
-  (filter
-    (filter_identifier)))
+    (string)
+    (filter
+      (filter_identifier)))
   (content))
 
-================================
+================================================================================
 Function call w/ named arguments
-================================
+================================================================================
 
 {{ convert_encoding(from='iso-2022-jp', to=encoding) }}
 
----
+--------------------------------------------------------------------------------
 
 (template
   (output_directive
-  (function_call
-    (function_identifier)
-    (arguments
-    (argument
-      (argument_name)
-      (argument_value
-      (string)))
-    (argument
-      (argument_name)
-      (argument_value
-      (variable))))))
+    (function_call
+      (function_identifier)
+      (arguments
+        (argument
+          (argument_name)
+          (argument_value
+            (string)))
+        (argument
+          (argument_name)
+          (argument_value
+            (variable))))))
   (content))
 
-=======
+================================================================================
 Numbers
-=======
+================================================================================
 
 {{ test(789654) }}
 
----
+--------------------------------------------------------------------------------
 
 (template
   (output_directive
-  (function_call
-    (function_identifier)
-    (arguments
-    (argument
-      (argument_value
-      (number))))))
-  (content)
-  )
+    (function_call
+      (function_identifier)
+      (arguments
+        (argument
+          (argument_value
+            (number))))))
+  (content))
 
-=====
+================================================================================
 Float
-=====
+================================================================================
 
 {{ 7896.54 }}
 
----
+--------------------------------------------------------------------------------
 
 (template
- (output_directive
-  (number))
+  (output_directive
+    (number))
   (content))
 
-=================
+================================================================================
 binary expression
-=================
+================================================================================
 
 {{ test() ~ 'test' }}
 
----
+--------------------------------------------------------------------------------
 
 (template
- (output_directive
-  (binary_expression
-   (function_call
-    (function_identifier)
-    (arguments))
-   (operator)
-   (string)))
-  (content)
- )
+  (output_directive
+    (binary_expression
+      (function_call
+        (function_identifier)
+        (arguments))
+      (operator)
+      (string)))
+  (content))
 
-===========================
+================================================================================
 binary expression w/ filter
-===========================
+================================================================================
 
 {{ test()|value ~ 'test'|length }}
 
----
+--------------------------------------------------------------------------------
 
 (template
- (output_directive
-  (binary_expression
-   (function_call
-    (function_identifier)
-    (arguments))
-   (filter
-    (filter_identifier))
-   (operator)
-   (string)
-   (filter
-    (filter_identifier))))
+  (output_directive
+    (binary_expression
+      (function_call
+        (function_identifier)
+        (arguments))
+      (filter
+        (filter_identifier))
+      (operator)
+      (string)
+      (filter
+        (filter_identifier))))
   (content))
 
-======================
+================================================================================
 parenthesis precedence
-======================
+================================================================================
 
 {{ (greeting ~ name)|lower }}
 
----
+--------------------------------------------------------------------------------
 
 (template
- (output_directive
-  (binary_expression
-   (variable)
-   (operator)
-   (variable))
-   (filter
-    (filter_identifier)))
+  (output_directive
+    (binary_expression
+      (variable)
+      (operator)
+      (variable))
+    (filter
+      (filter_identifier)))
   (content))
 
-======
+================================================================================
 Arrays
-======
+================================================================================
 
 {{ ["test", test(), test|filter] }}
 
----
+--------------------------------------------------------------------------------
 
 (template
- (output_directive
-  (array
-    (interpolated_string)
-    (function_call
-      (function_identifier)
-      (arguments))
-    (variable)
-    (filter
-      (filter_identifier))))
+  (output_directive
+    (array
+      (interpolated_string)
+      (function_call
+        (function_identifier)
+        (arguments))
+      (variable)
+      (filter
+        (filter_identifier))))
   (content))
 
-======
+================================================================================
 Hashes
-======
+================================================================================
 
 {{ { 'foo': 'foo', bar: 'bar', 2: 'foo', foo, (foo): 'foo', (1 + 1): 'bar', (foo ~ 'b'): 'baz' } }}
 
----
+--------------------------------------------------------------------------------
 
 (template
   (output_directive
@@ -301,13 +299,13 @@ Hashes
         (string))))
   (content))
 
-=======
+================================================================================
 Ternary
-=======
+================================================================================
 
 {{ foo ? 'yes' : 'no' }}
 
----
+--------------------------------------------------------------------------------
 
 (template
   (output_directive
@@ -317,13 +315,13 @@ Ternary
       (string)))
   (content))
 
-=====
+================================================================================
 arrow
-=====
+================================================================================
 
 {{ people|map(p => "ezfze")|join(', ') }}
 
----
+--------------------------------------------------------------------------------
 
 (template
   (output_directive
@@ -343,46 +341,46 @@ arrow
             (string))))))
   (content))
 
-==============
+================================================================================
 Trailing comma
-==============
+================================================================================
 
 {{ form_widget(child, {
     parent_label_class: label_attr.class|default(''),
 }) }}
 
----
+--------------------------------------------------------------------------------
 
 (template
- (output_directive
-   (function_call
-     (function_identifier)
-     (arguments
-       (argument
-         (argument_value
-           (variable)))
-       (argument
-         (argument_value
-           (hash
-             (hash_key
-               (name))
-             (hash_value
-               (variable)
-               (filter
-                 (filter_identifier)
-                 (arguments
-                   (argument
-                     (argument_value
-                       (string))))))))))))
- (content))
+  (output_directive
+    (function_call
+      (function_identifier)
+      (arguments
+        (argument
+          (argument_value
+            (variable)))
+        (argument
+          (argument_value
+            (hash
+              (hash_key
+                (name))
+              (hash_value
+                (variable)
+                (filter
+                  (filter_identifier)
+                  (arguments
+                    (argument
+                      (argument_value
+                        (string))))))))))))
+  (content))
 
-============
+================================================================================
 Array access
-============
+================================================================================
 
 {{ foo['bar'] }}
 
----
+--------------------------------------------------------------------------------
 
 (template
   (output_directive
@@ -390,13 +388,13 @@ Array access
       (string)))
   (content))
 
-============
+================================================================================
 Array slice
-============
+================================================================================
 
 {{ foo[0:2] }}
 
----
+--------------------------------------------------------------------------------
 
 (template
   (output_directive
@@ -405,13 +403,13 @@ Array slice
       (number)))
   (content))
 
-=============
+================================================================================
 Array slice 2
-=============
+================================================================================
 
 {{ foo[:2] }}
 
----
+--------------------------------------------------------------------------------
 
 (template
   (output_directive
@@ -419,13 +417,13 @@ Array slice 2
       (number)))
   (content))
 
-=============
+================================================================================
 Array slice 3
-=============
+================================================================================
 
 {{ foo[0:] }}
 
----
+--------------------------------------------------------------------------------
 
 (template
   (output_directive
@@ -433,13 +431,13 @@ Array slice 3
       (number)))
   (content))
 
-============
+================================================================================
 Fake ternary
-============
+================================================================================
 
 {{ test ? 'ok' }}
 
----
+--------------------------------------------------------------------------------
 
 (template
   (output_directive

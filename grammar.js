@@ -7,13 +7,17 @@ module.exports = grammar({
   name: 'twig',
   extras: () => [/\s/],
   rules: {
-    template: ($) => repeat(choice($.statement_directive, $.output_directive, $.comment, $.content)),
+    template: ($) =>
+      repeat(
+        choice($.statement_directive, $.output_directive, $.comment, $.content)
+      ),
 
     content: () => prec.right(repeat1(/[^\{]+|\{/)),
 
     comment: () => seq('{#', /[^#]*\#+([^\}#][^#]*\#+)*/, '}'),
 
-    statement_directive: ($) => seq(choice('{%', '{%-', '{%~'), $._statement, choice('%}', '-%}', '~%}')),
+    statement_directive: ($) =>
+      seq(choice('{%', '{%-', '{%~'), $._statement, choice('%}', '-%}', '~%}')),
 
     _statement: ($) =>
       choice(
@@ -29,22 +33,37 @@ module.exports = grammar({
         $.tag_statement
       ),
 
-    assignment_statement: ($) => seq(alias('set', $.keyword), alias($.identifier, $.variable), '=', $._expression),
+    assignment_statement: ($) =>
+      seq(
+        alias('set', $.keyword),
+        alias($.identifier, $.variable),
+        optional(seq('=', $._expression))
+      ),
 
     for_statement: ($) =>
       seq(
         alias('for', $.repeat),
-        seq(alias($._name, $.variable), repeat(seq(',', alias($._name, $.variable)))),
+        seq(
+          alias($._name, $.variable),
+          repeat(seq(',', alias($._name, $.variable)))
+        ),
         alias('in', $.keyword),
         $._expression
       ),
 
     if_statement: ($) =>
-      choice(seq(alias(choice('if', 'elseif'), $.conditional), $._expression), alias('else', $.conditional)),
+      choice(
+        seq(alias(choice('if', 'elseif'), $.conditional), $._expression),
+        alias('else', $.conditional)
+      ),
 
     tag_statement: ($) =>
       seq(
-        choice(alias('endif', $.conditional), alias('endfor', $.repeat), alias($._name, $.tag)),
+        choice(
+          alias('endif', $.conditional),
+          alias('endfor', $.repeat),
+          alias($._name, $.tag)
+        ),
         repeat(prec.left($._expression))
       ),
 
@@ -61,15 +80,32 @@ module.exports = grammar({
         )
       ),
 
-    with_statement: ($) => seq(alias('with', $.tag), $._expression, optional(alias('only', $.attribute))),
+    with_statement: ($) =>
+      seq(
+        alias('with', $.tag),
+        $._expression,
+        optional(alias('only', $.attribute))
+      ),
 
-    macro_statement: ($) => seq(alias('macro', $.tag), alias($._name, $.method), optional($.parameters)),
+    macro_statement: ($) =>
+      seq(
+        alias('macro', $.tag),
+        alias($._name, $.method),
+        optional($.parameters)
+      ),
 
-    parameters: ($) => seq('(', optional(seq($.parameter, repeat(seq(',', $.parameter)))), ')'),
+    parameters: ($) =>
+      seq('(', optional(seq($.parameter, repeat(seq(',', $.parameter)))), ')'),
 
     parameter: ($) => seq($._name, optional(seq('=', $._literal))),
 
-    import_statement: ($) => seq(alias('import', $.tag), $._expression, alias('as', $.keyword), alias($._name, $.name)),
+    import_statement: ($) =>
+      seq(
+        alias('import', $.tag),
+        $._expression,
+        alias('as', $.keyword),
+        alias($._name, $.name)
+      ),
 
     from_statement: ($) =>
       seq(
@@ -77,10 +113,21 @@ module.exports = grammar({
         $._expression,
         alias('import', $.keyword),
         alias($._name, $.name),
-        optional(seq(alias('as', $.keyword), alias($._name, $.name), repeat(seq(',', alias($._name, $.name)))))
+        optional(
+          seq(
+            alias('as', $.keyword),
+            alias($._name, $.name),
+            repeat(seq(',', alias($._name, $.name)))
+          )
+        )
       ),
 
-    output_directive: ($) => seq(choice('{{', '{{-', '{{~'), $._expression, choice('}}', '-}}', '~}}')),
+    output_directive: ($) =>
+      seq(
+        choice('{{', '{{-', '{{~'),
+        $._expression,
+        choice('}}', '-}}', '~}}')
+      ),
 
     _expression: ($) =>
       prec.right(
@@ -104,47 +151,110 @@ module.exports = grammar({
         seq(
           $._name,
           repeat(seq('.', $._name)),
-          optional(seq('[', choice($._expression, seq(optional($._expression), ':', optional($._expression))), ']'))
+          optional(
+            seq(
+              '[',
+              choice(
+                $._expression,
+                seq(optional($._expression), ':', optional($._expression))
+              ),
+              ']'
+            )
+          )
         )
       ),
     _name: () => REGEX_NAME,
 
-    _literal: ($) => choice($._string, $.number, $.array, $.hash, $.boolean, $.null),
+    _literal: ($) =>
+      choice($._string, $.number, $.array, $.hash, $.boolean, $.null),
 
     boolean: () => choice('true', 'false'),
     null: () => 'null',
-    _string: ($) => choice(alias(REGEX_STRING_SIMPLE_QUOTED, $.string), $.interpolated_string),
+    _string: ($) =>
+      choice(
+        alias(REGEX_STRING_SIMPLE_QUOTED, $.string),
+        $.interpolated_string
+      ),
 
     interpolated_string: ($) =>
-      seq('"', repeat(choice('\\"', '\\#', '\\\\', REGEX_STRING_INTERPOLATED, seq('#{', $._expression, '}'))), '"'),
+      seq(
+        '"',
+        repeat(
+          choice(
+            '\\"',
+            '\\#',
+            '\\\\',
+            REGEX_STRING_INTERPOLATED,
+            seq('#{', $._expression, '}')
+          )
+        ),
+        '"'
+      ),
 
     number: () => REGEX_NUMBER,
-    array: ($) => seq('[', optional(seq($._expression, repeat(seq(',', $._expression)))), ']'),
-    hash: ($) => seq('{', optional(seq($._hash_entry, repeat(seq(',', $._hash_entry)))), optional(','), '}'),
-    _hash_entry: ($) => seq(optional($.hash_key), alias($._expression, $.hash_value)),
+    array: ($) =>
+      seq(
+        '[',
+        optional(seq($._expression, repeat(seq(',', $._expression)))),
+        ']'
+      ),
+    hash: ($) =>
+      seq(
+        '{',
+        optional(seq($._hash_entry, repeat(seq(',', $._hash_entry)))),
+        optional(','),
+        '}'
+      ),
+    _hash_entry: ($) =>
+      seq(optional($.hash_key), alias($._expression, $.hash_value)),
 
-    hash_key: ($) => seq(choice(seq('(', $._expression, ')'), $._string, $.number, alias($._name, $.name)), ':'),
+    hash_key: ($) =>
+      seq(
+        choice(
+          seq('(', $._expression, ')'),
+          $._string,
+          $.number,
+          alias($._name, $.name)
+        ),
+        ':'
+      ),
 
-    function_call: ($) => seq(alias($.identifier, $.function_identifier), $.arguments),
+    function_call: ($) =>
+      seq(alias($.identifier, $.function_identifier), $.arguments),
 
-    arguments: ($) => seq('(', optional(seq($.argument, repeat(seq(',', $.argument)))), ')'),
+    arguments: ($) =>
+      seq('(', optional(seq($.argument, repeat(seq(',', $.argument)))), ')'),
 
-    argument: ($) => seq(optional($.argument_name), alias($._expression, $.argument_value)),
+    argument: ($) =>
+      seq(optional($.argument_name), alias($._expression, $.argument_value)),
 
     argument_name: () => seq(REGEX_NAME, '='),
 
     filter: ($) =>
-      prec.left(seq(alias($.identifier, $.filter_identifier), optional(alias($.filter_arguments, $.arguments)))),
+      prec.left(
+        seq(
+          alias($.identifier, $.filter_identifier),
+          optional(alias($.filter_arguments, $.arguments))
+        )
+      ),
 
     filter_arguments: ($) =>
       seq(
         '(',
-        optional(seq(alias($.filter_argument, $.argument), repeat(seq(',', alias($.filter_argument, $.argument))))),
+        optional(
+          seq(
+            alias($.filter_argument, $.argument),
+            repeat(seq(',', alias($.filter_argument, $.argument)))
+          )
+        ),
         ')'
       ),
 
     filter_argument: ($) =>
-      seq(optional($.argument_name), choice($.arrow_function, alias($._expression, $.argument_value))),
+      seq(
+        optional($.argument_name),
+        choice($.arrow_function, alias($._expression, $.argument_value))
+      ),
 
     arrow_function: ($) =>
       prec(
@@ -152,14 +262,29 @@ module.exports = grammar({
         seq(
           choice(
             alias($._name, $.name),
-            seq('(', optional(seq(alias($._name, $.name), repeat(seq(',', alias($._name, $.name))))), ')')
+            seq(
+              '(',
+              optional(
+                seq(
+                  alias($._name, $.name),
+                  repeat(seq(',', alias($._name, $.name)))
+                )
+              ),
+              ')'
+            )
           ),
           '=>',
           $._expression
         )
       ),
 
-    binary_expression: ($) => prec.right(seq($._expression, seq(alias($.binary_operator, $.operator), $._expression))),
+    binary_expression: ($) =>
+      prec.right(
+        seq(
+          $._expression,
+          seq(alias($.binary_operator, $.operator), $._expression)
+        )
+      ),
 
     test_expression: ($) =>
       prec.right(
@@ -168,7 +293,11 @@ module.exports = grammar({
           alias($.test_operator, $.operator),
           choice(
             seq(alias(repeat1(REGEX_NAME), $.test), optional($.arguments)),
-            seq(alias(repeat1(REGEX_NAME), $.test), optional($.arguments), seq($.binary_operator, $._expression))
+            seq(
+              alias(repeat1(REGEX_NAME), $.test),
+              optional($.arguments),
+              seq($.binary_operator, $._expression)
+            )
           )
         )
       ),
@@ -205,11 +334,20 @@ module.exports = grammar({
         '?:'
       ),
 
-    unary_expression: ($) => prec.left(seq(alias($.unary_operator, $.operator), $._expression)),
+    unary_expression: ($) =>
+      prec.left(seq(alias($.unary_operator, $.operator), $._expression)),
 
     unary_operator: () => choice('-', '+', 'not'),
 
-    ternary_expression: ($) => prec.left(seq($._expression, '?', $._expression, optional(seq(':', $._expression)))),
+    ternary_expression: ($) =>
+      prec.left(
+        seq(
+          $._expression,
+          '?',
+          $._expression,
+          optional(seq(':', $._expression))
+        )
+      ),
 
     test_operator: () => choice('is', 'is not'),
   },
