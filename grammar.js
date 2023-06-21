@@ -37,7 +37,8 @@ module.exports = grammar({
       seq(
         alias('set', $.keyword),
         alias($.identifier, $.variable),
-        optional(seq('=', $._expression))
+        repeat(seq(',', alias($.identifier, $.variable))),
+        optional(seq('=', $._expression, repeat(seq(',', $._expression))))
       ),
 
     for_statement: ($) =>
