@@ -12,7 +12,7 @@ module.exports = grammar({
         choice($.statement_directive, $.output_directive, $.comment, $.content)
       ),
 
-    content: () => prec.right(repeat1(/[^\{]+|\{/)),
+    content: () => prec.right(repeat1(/[^\s\n\r]+/)),
 
     comment: () => seq('{#', /[^#]*\#+([^\}#][^#]*\#+)*/, '}'),
 

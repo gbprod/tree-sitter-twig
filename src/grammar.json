@@ -32,7 +32,7 @@
         "type": "REPEAT1",
         "content": {
           "type": "PATTERN",
-          "value": "[^\\{]+|\\{"
+          "value": "[^\\s\\n\\r]+"
         }
       }
     },
@@ -1916,3 +1916,4 @@
   "inline": [],
   "supertypes": []
 }
+
