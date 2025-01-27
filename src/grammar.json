@@ -21,10 +21,6 @@
           {
             "type": "SYMBOL",
             "name": "content"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "_lone_opening_curly"
           }
         ]
       }
@@ -38,44 +34,6 @@
           "type": "PATTERN",
           "value": "[^\\s\\n\\r{}]+"
         }
-      }
-    },
-    "_lone_opening_curly": {
-      "type": "PREC_LEFT",
-      "value": 0,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "STRING",
-            "value": "{"
-          },
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "{"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "%"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "#"
-                  }
-                ]
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
-        ]
       }
     },
     "comment": {

@@ -9,12 +9,10 @@ module.exports = grammar({
   rules: {
     template: ($) =>
       repeat(
-        choice($.statement_directive, $.output_directive, $.comment, $.content, $._lone_opening_curly)
+        choice($.statement_directive, $.output_directive, $.comment, $.content)
       ),
 
-    content: () => prec.right(repeat1(/[^\s\n\r{}]+/)), // Match valid content, stopping at `{`
-
-    _lone_opening_curly: () => prec.left(seq('{', optional(choice('{', '%', '#')))),
+    content: () => prec.right(repeat1(/[^\s\n\r{}]+/)),
 
     comment: () =>
       seq(
