@@ -5,7 +5,7 @@ const REGEX_NUMBER = /[0-9]+(?:\.[0-9]+)?([Ee][\+\-][0-9]+)?/;
 
 module.exports = grammar({
   name: 'twig',
-  extras: () => [/\s/, /\n/, /\r\n?/],
+  extras: () => [/\s/, /\n/, /\r\n?/, '{'],
   conflicts: ($) => [
     [$.statement_directive, $.content],
     [$.output_directive, $.content],

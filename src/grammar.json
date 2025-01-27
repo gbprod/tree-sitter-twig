@@ -1940,6 +1940,10 @@
     {
       "type": "PATTERN",
       "value": "\\r\\n?"
+    },
+    {
+      "type": "STRING",
+      "value": "{"
     }
   ],
   "conflicts": [
