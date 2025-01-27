@@ -5,19 +5,28 @@ const REGEX_NUMBER = /[0-9]+(?:\.[0-9]+)?([Ee][\+\-][0-9]+)?/;
 
 module.exports = grammar({
   name: 'twig',
-  extras: () => [/\s/],
+  extras: () => [/\s/, /\n/, /\r\n?/],
   rules: {
     template: ($) =>
       repeat(
         choice($.statement_directive, $.output_directive, $.comment, $.content)
       ),
 
-    content: () => prec.right(repeat1(/[^\{]+|\{/)),
+    content: () => prec.right(repeat1(/[^\s\n\r{}]+/)),
 
-    comment: () => seq('{#', /[^#]*\#+([^\}#][^#]*\#+)*/, '}'),
+    comment: () =>
+      seq(
+        '{#',
+        /([^#]|#[^}])*/,
+        '#}'
+      ),
 
     statement_directive: ($) =>
-      seq(choice('{%', '{%-', '{%~'), $._statement, choice('%}', '-%}', '~%}')),
+      prec(2, seq(
+        choice('{%', '{%-', '{%~'), // Opening delimiter
+        optional($._statement),     // Optional Twig statement
+        choice('%}', '-%}', '~%}')  // Closing delimiter
+      )),
 
     _statement: ($) =>
       choice(
@@ -124,11 +133,11 @@ module.exports = grammar({
       ),
 
     output_directive: ($) =>
-      seq(
+      prec(2, seq(
         choice('{{', '{{-', '{{~'),
-        $._expression,
+        optional($._expression),
         choice('}}', '-}}', '~}}')
-      ),
+      )),
 
     _expression: ($) =>
       prec.right(
