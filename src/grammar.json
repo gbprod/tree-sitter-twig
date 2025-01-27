@@ -20,10 +20,6 @@
           },
           {
             "type": "SYMBOL",
-            "name": "_lone_opening_curly"
-          },
-          {
-            "type": "SYMBOL",
             "name": "content"
           }
         ]
@@ -39,10 +35,6 @@
           "value": "[^{\\s\\n\\r]+"
         }
       }
-    },
-    "_lone_opening_curly": {
-      "type": "STRING",
-      "value": "{"
     },
     "comment": {
       "type": "SEQ",
@@ -1948,10 +1940,6 @@
     {
       "type": "PATTERN",
       "value": "\\r\\n?"
-    },
-    {
-      "type": "STRING",
-      "value": "{"
     }
   ],
   "conflicts": [
