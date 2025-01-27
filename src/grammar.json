@@ -54,28 +54,67 @@
       ]
     },
     "statement_directive": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "CHOICE",
+          "type": "SEQ",
           "members": [
             {
-              "type": "STRING",
-              "value": "{%"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "{%"
+                },
+                {
+                  "type": "STRING",
+                  "value": "{%-"
+                },
+                {
+                  "type": "STRING",
+                  "value": "{%~"
+                }
+              ]
             },
             {
-              "type": "STRING",
-              "value": "{%-"
-            },
-            {
-              "type": "STRING",
-              "value": "{%~"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "%}"
+                },
+                {
+                  "type": "STRING",
+                  "value": "-%}"
+                },
+                {
+                  "type": "STRING",
+                  "value": "~%}"
+                }
+              ]
             }
           ]
         },
         {
-          "type": "CHOICE",
+          "type": "SEQ",
           "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "{%"
+                },
+                {
+                  "type": "STRING",
+                  "value": "{%-"
+                },
+                {
+                  "type": "STRING",
+                  "value": "{%~"
+                }
+              ]
+            },
             {
               "type": "CHOICE",
               "members": [
@@ -84,30 +123,26 @@
                   "name": "_statement"
                 },
                 {
-                  "type": "PATTERN",
-                  "value": "[ \\t]*"
+                  "type": "BLANK"
                 }
               ]
             },
             {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "%}"
-            },
-            {
-              "type": "STRING",
-              "value": "-%}"
-            },
-            {
-              "type": "STRING",
-              "value": "~%}"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "%}"
+                },
+                {
+                  "type": "STRING",
+                  "value": "-%}"
+                },
+                {
+                  "type": "STRING",
+                  "value": "~%}"
+                }
+              ]
             }
           ]
         }
@@ -738,28 +773,67 @@
       ]
     },
     "output_directive": {
-      "type": "SEQ",
+      "type": "CHOICE",
       "members": [
         {
-          "type": "CHOICE",
+          "type": "SEQ",
           "members": [
             {
-              "type": "STRING",
-              "value": "{{"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "{{"
+                },
+                {
+                  "type": "STRING",
+                  "value": "{{-"
+                },
+                {
+                  "type": "STRING",
+                  "value": "{{~"
+                }
+              ]
             },
             {
-              "type": "STRING",
-              "value": "{{-"
-            },
-            {
-              "type": "STRING",
-              "value": "{{~"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "}}"
+                },
+                {
+                  "type": "STRING",
+                  "value": "-}}"
+                },
+                {
+                  "type": "STRING",
+                  "value": "~}}"
+                }
+              ]
             }
           ]
         },
         {
-          "type": "CHOICE",
+          "type": "SEQ",
           "members": [
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "{{"
+                },
+                {
+                  "type": "STRING",
+                  "value": "{{-"
+                },
+                {
+                  "type": "STRING",
+                  "value": "{{~"
+                }
+              ]
+            },
             {
               "type": "CHOICE",
               "members": [
@@ -768,30 +842,26 @@
                   "name": "_expression"
                 },
                 {
-                  "type": "PATTERN",
-                  "value": "[ \\t]*"
+                  "type": "BLANK"
                 }
               ]
             },
             {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "STRING",
-              "value": "}}"
-            },
-            {
-              "type": "STRING",
-              "value": "-}}"
-            },
-            {
-              "type": "STRING",
-              "value": "~}}"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "}}"
+                },
+                {
+                  "type": "STRING",
+                  "value": "-}}"
+                },
+                {
+                  "type": "STRING",
+                  "value": "~}}"
+                }
+              ]
             }
           ]
         }

@@ -17,10 +17,16 @@ module.exports = grammar({
     comment: () => seq('{#', /[^#]*\#+([^\}#][^#]*\#+)*/, '}'),
 
     statement_directive: ($) =>
-      seq(
-        choice('{%', '{%-', '{%~'),
-        optional(choice($._statement, /[ \t]*/)),
-        choice('%}', '-%}', '~%}')
+      choice(
+        seq(
+          choice('{%', '{%-', '{%~'),
+          choice('%}', '-%}', '~%}')
+        ),
+        seq(
+          choice('{%', '{%-', '{%~'),
+          optional($._statement),
+          choice('%}', '-%}', '~%}')
+        ),
       ),
 
     _statement: ($) =>
@@ -128,10 +134,16 @@ module.exports = grammar({
       ),
 
     output_directive: ($) =>
-      seq(
-        choice('{{', '{{-', '{{~'),
-        optional(choice($._expression, /[ \t]*/)),
-        choice('}}', '-}}', '~}}')
+      choice(
+        seq(
+          choice('{{', '{{-', '{{~'),
+          choice('}}', '-}}', '~}}')
+        ),
+        seq(
+          choice('{{', '{{-', '{{~'),
+          optional($._expression),
+          choice('}}', '-}}', '~}}')
+        )
       ),
 
     _expression: ($) =>
