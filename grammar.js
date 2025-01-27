@@ -18,7 +18,12 @@ module.exports = grammar({
 
     content: () => prec.right(repeat1(/[^{}]+/)),
 
-    comment: () => seq('{#', /[^#]*\#+([^\}#][^#]*\#+)*/, '}'),
+    comment: () =>
+      seq(
+        '{#',
+        /[^#]*\#+([^\}#][^#]*\#+)*/,
+        '#}'
+      ),
 
     statement_directive: ($) =>
       prec(2, seq(
