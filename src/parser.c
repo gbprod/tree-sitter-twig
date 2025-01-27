@@ -2567,8 +2567,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead == ' ') SKIP(115)
       if (lookahead == '\r') SKIP(115)
       if (lookahead == '{') ADVANCE(277);
-      if (lookahead != 0 &&
-          lookahead != '}') ADVANCE(118);
+      if (lookahead != 0) ADVANCE(118);
       END_STATE();
     case 116:
       if (eof) ADVANCE(117);
@@ -2623,8 +2622,7 @@ static bool ts_lex(TSLexer *lexer, TSStateId state) {
           lookahead != '\n' &&
           lookahead != '\r' &&
           lookahead != ' ' &&
-          lookahead != '{' &&
-          lookahead != '}') ADVANCE(118);
+          lookahead != '{') ADVANCE(118);
       END_STATE();
     case 119:
       ACCEPT_TOKEN(anon_sym_LBRACE_POUND);
