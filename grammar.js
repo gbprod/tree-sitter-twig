@@ -16,7 +16,9 @@ module.exports = grammar({
         choice($.statement_directive, $.output_directive, $.comment, $.content)
       ),
 
-    content: () => prec.right(repeat1(/[^{\s\n\r]+/)),
+    content: () => prec.right(repeat1(/[^\s\n\r{]/)),
+    _lone_opening_curly: () => "{",
+
     comment: () =>
       seq(
         '{#',

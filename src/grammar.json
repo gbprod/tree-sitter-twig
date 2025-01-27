@@ -32,9 +32,13 @@
         "type": "REPEAT1",
         "content": {
           "type": "PATTERN",
-          "value": "[^{\\s\\n\\r]+"
+          "value": "[^\\s\\n\\r{]"
         }
       }
+    },
+    "_lone_opening_curly": {
+      "type": "STRING",
+      "value": "{"
     },
     "comment": {
       "type": "SEQ",
