@@ -77,8 +77,21 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "_statement"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_statement"
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "[ \\t]*"
+                },
+                {
+                  "type": "STRING",
+                  "value": ""
+                }
+              ]
             },
             {
               "type": "BLANK"
@@ -752,8 +765,21 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "_expression"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_expression"
+                },
+                {
+                  "type": "PATTERN",
+                  "value": "[ \\t]*"
+                },
+                {
+                  "type": "STRING",
+                  "value": ""
+                }
+              ]
             },
             {
               "type": "BLANK"

@@ -19,7 +19,7 @@ module.exports = grammar({
     statement_directive: ($) =>
       seq(
         choice('{%', '{%-', '{%~'),
-        optional($._statement),
+        optional(choice($._statement, /[ \t]*/, '')),
         choice('%}', '-%}', '~%}')
       ),
 
@@ -130,7 +130,7 @@ module.exports = grammar({
     output_directive: ($) =>
       seq(
         choice('{{', '{{-', '{{~'),
-        optional($._expression),
+        optional(choice($._expression, /[ \t]*/, '')),
         choice('}}', '-}}', '~}}')
       ),
 
