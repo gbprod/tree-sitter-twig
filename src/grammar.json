@@ -1946,16 +1946,7 @@
       "value": "{"
     }
   ],
-  "conflicts": [
-    [
-      "statement_directive",
-      "content"
-    ],
-    [
-      "output_directive",
-      "content"
-    ]
-  ],
+  "conflicts": [],
   "precedences": [],
   "externals": [],
   "inline": [],
