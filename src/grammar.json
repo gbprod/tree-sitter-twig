@@ -20,6 +20,10 @@
           },
           {
             "type": "SYMBOL",
+            "name": "_lone_opening_curly"
+          },
+          {
+            "type": "SYMBOL",
             "name": "content"
           }
         ]
@@ -32,7 +36,7 @@
         "type": "REPEAT1",
         "content": {
           "type": "PATTERN",
-          "value": "[^\\s\\n\\r{]"
+          "value": "[^{\\s\\n\\r]+"
         }
       }
     },
