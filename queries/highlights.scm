@@ -13,6 +13,7 @@
 (keyword) @keyword
 (attribute) @attribute
 (tag) @tag
+(erroneous_end_tag_name) @tag.error
 (conditional) @conditional
 (repeat) @repeat
 (method) @method
@@ -42,7 +43,7 @@
 ] @punctuation.delimiter
 
 (interpolated_string [
-    "#{" 
+    "#{"
     "}"
 ] @punctuation.delimiter)
 

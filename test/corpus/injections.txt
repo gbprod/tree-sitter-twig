@@ -18,7 +18,7 @@ Raw text elements
 
 ---
 
-(document
+(template
   (script_element
     (start_tag (tag_name))
     (raw_text)

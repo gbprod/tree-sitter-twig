@@ -5,14 +5,34 @@ const REGEX_NUMBER = /[0-9]+(?:\.[0-9]+)?([Ee][\+\-][0-9]+)?/;
 
 module.exports = grammar({
   name: 'twig',
-  extras: () => [/\s/],
+
+  extras: () => [/\s+/],
+
+  externals: ($) => [
+    $._start_tag_name,
+    $._script_start_tag_name,
+    $._style_start_tag_name,
+    $._end_tag_name,
+    $.erroneous_end_tag_name,
+    '/>',
+    $._implicit_end_tag,
+    $.raw_text,
+  ],
+
   rules: {
     template: ($) =>
       repeat(
-        choice($.statement_directive, $.output_directive, $.comment, $.content)
+        choice(
+          $.statement_directive,
+          $.output_directive,
+          $.comment,
+          $.script_element,
+          $.style_element,
+          $.content
+        )
       ),
 
-    content: () => prec.right(repeat1(/[^\{]+|\{/)),
+    content: ($) => prec.right(repeat1(/[^\{]+|\{/)),
 
     comment: () => seq('{#', /[^#]*\#+([^\}#][^#]*\#+)*/, '}'),
 
@@ -351,5 +371,58 @@ module.exports = grammar({
       ),
 
     test_operator: () => choice('is', 'is not'),
+
+    script_element: ($) =>
+      seq(
+        alias($.script_start_tag, $.start_tag),
+        optional($.raw_text),
+        $.end_tag
+      ),
+
+    style_element: ($) =>
+      seq(
+        alias($.style_start_tag, $.start_tag),
+        optional($.raw_text),
+        $.end_tag
+      ),
+
+    start_tag: ($) =>
+      seq('<', alias($._start_tag_name, $.tag_name), repeat($.attribute), '>'),
+
+    script_start_tag: ($) =>
+      seq(
+        '<',
+        alias($._script_start_tag_name, $.tag_name),
+        repeat($.attribute),
+        '>'
+      ),
+
+    style_start_tag: ($) =>
+      seq(
+        '<',
+        alias($._style_start_tag_name, $.tag_name),
+        repeat($.attribute),
+        '>'
+      ),
+
+    end_tag: ($) => seq('</', alias($._end_tag_name, $.tag_name), '>'),
+
+    erroneous_end_tag: ($) => seq('</', $.erroneous_end_tag_name, '>'),
+
+    attribute: ($) =>
+      seq(
+        $.attribute_name,
+        optional(seq('=', choice($.attribute_value, $.quoted_attribute_value)))
+      ),
+
+    attribute_name: (_) => /[^<>"'/=\s]+/,
+
+    attribute_value: (_) => /[^<>"'=\s]+/,
+
+    quoted_attribute_value: ($) =>
+      choice(
+        seq("'", optional(alias(/[^']+/, $.attribute_value)), "'"),
+        seq('"', optional(alias(/[^"]+/, $.attribute_value)), '"')
+      ),
   },
 });
