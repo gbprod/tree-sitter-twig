@@ -1,0 +1,34 @@
+==================================
+Raw text elements
+==================================
+<script>
+  </s
+  </sc
+  </scr
+  </scri
+  </scrip
+</script>
+
+<style>
+  </ </s </st </sty </styl
+</style>
+
+<script>
+</SCRIPT>
+
+---
+
+(template
+  (script_element
+    (start_tag (tag_name))
+    (raw_text)
+    (end_tag (tag_name)))
+  (style_element
+    (start_tag (tag_name))
+    (raw_text)
+    (end_tag (tag_name)))
+  (script_element
+    (start_tag (tag_name))
+    (raw_text)
+    (end_tag (tag_name))))
+

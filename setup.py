@@ -36,6 +36,7 @@ setup(
             sources=[
                 "bindings/python/tree_sitter_twig/binding.c",
                 "src/parser.c",
+                "src/scanner.c",
                 # NOTE: if your language uses an external scanner, add it here.
             ],
             extra_compile_args=[

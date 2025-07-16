@@ -2,14 +2,10 @@
  (#set! injection.language "html")
  (#set! injection.combined))
 
-((style_content) @injection.content
-  (#set! injection.language "css")
-  (#set! injection.combined))
+ ((script_element
+  (raw_text) @injection.content)
+ (#set! injection.language "javascript"))
 
-((js_content) @injection.content
-  (#set! injection.language "javascript")
-  (#set! injection.combined))
-
-((json_content) @injection.content
-  (#set! injection.language "json")
-  (#set! injection.combined))
+((style_element
+  (raw_text) @injection.content)
+ (#set! injection.language "css"))

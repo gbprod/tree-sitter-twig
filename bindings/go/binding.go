@@ -1,7 +1,7 @@
 package tree_sitter_twig
 
 // #cgo CFLAGS: -std=c11 -fPIC
-// #include "../../src/parser.c"
+#include "../../src/parser.c"
 // // NOTE: if your language has an external scanner, add it here.
 import "C"
 
