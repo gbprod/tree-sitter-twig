@@ -142,8 +142,7 @@ Function call w/ named arguments
         (argument
           (argument_name)
           (argument_value
-            (variable))))))
-  (content))
+            (variable)))))))
 
 ================================================================================
 Numbers
@@ -160,8 +159,7 @@ Numbers
       (arguments
         (argument
           (argument_value
-            (number))))))
-  (content))
+            (number)))))))
 
 ================================================================================
 Float
@@ -173,8 +171,7 @@ Float
 
 (template
   (output_directive
-    (number))
-  (content))
+    (number)))
 
 ================================================================================
 binary expression
@@ -191,8 +188,7 @@ binary expression
         (function_identifier)
         (arguments))
       (operator)
-      (string)))
-  (content))
+      (string))))
 
 ================================================================================
 binary expression w/ filter
@@ -213,8 +209,7 @@ binary expression w/ filter
       (operator)
       (string)
       (filter
-        (filter_identifier))))
-  (content))
+        (filter_identifier)))))
 
 ================================================================================
 parenthesis precedence
@@ -231,8 +226,7 @@ parenthesis precedence
       (operator)
       (variable))
     (filter
-      (filter_identifier)))
-  (content))
+      (filter_identifier))))
 
 ================================================================================
 Arrays
@@ -251,8 +245,7 @@ Arrays
         (arguments))
       (variable)
       (filter
-        (filter_identifier))))
-  (content))
+        (filter_identifier)))))
 
 ================================================================================
 Hashes
@@ -296,8 +289,7 @@ Hashes
           (operator)
           (string)))
       (hash_value
-        (string))))
-  (content))
+        (string)))))
 
 ================================================================================
 Ternary
@@ -312,8 +304,7 @@ Ternary
     (ternary_expression
       (variable)
       (string)
-      (string)))
-  (content))
+      (string))))
 
 ================================================================================
 arrow
@@ -338,8 +329,7 @@ arrow
       (arguments
         (argument
           (argument_value
-            (string))))))
-  (content))
+            (string)))))))
 
 ================================================================================
 Trailing comma
@@ -371,8 +361,7 @@ Trailing comma
                   (arguments
                     (argument
                       (argument_value
-                        (string))))))))))))
-  (content))
+                        (string)))))))))))))
 
 ================================================================================
 Array access
@@ -385,8 +374,7 @@ Array access
 (template
   (output_directive
     (variable
-      (string)))
-  (content))
+      (string))))
 
 ================================================================================
 Array slice
@@ -400,8 +388,7 @@ Array slice
   (output_directive
     (variable
       (number)
-      (number)))
-  (content))
+      (number))))
 
 ================================================================================
 Array slice 2
@@ -414,8 +401,7 @@ Array slice 2
 (template
   (output_directive
     (variable
-      (number)))
-  (content))
+      (number))))
 
 ================================================================================
 Array slice 3
@@ -428,8 +414,7 @@ Array slice 3
 (template
   (output_directive
     (variable
-      (number)))
-  (content))
+      (number))))
 
 ================================================================================
 Fake ternary
@@ -443,5 +428,4 @@ Fake ternary
   (output_directive
     (ternary_expression
       (variable)
-      (string)))
-  (content))
+      (string))))

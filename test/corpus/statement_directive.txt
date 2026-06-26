@@ -11,8 +11,7 @@ Set
     (assignment_statement
       (keyword)
       (variable)
-      (string)))
-  (content))
+      (string))))
 
 ================================================================================
 Several variables set
@@ -29,8 +28,7 @@ Several variables set
       (variable)
       (variable)
       (string)
-      (string)))
-  (content))
+      (string))))
 
 ================================================================================
 Block set
@@ -44,8 +42,7 @@ Block set
   (statement_directive
     (assignment_statement
       (keyword)
-      (variable)))
-  (content))
+      (variable))))
 
 ================================================================================
 Apply
@@ -65,8 +62,7 @@ Apply
   (content)
   (statement_directive
     (tag_statement
-      (tag)))
-  (content))
+      (tag))))
 
 ================================================================================
 For
@@ -98,8 +94,7 @@ For
   (content)
   (statement_directive
     (tag_statement
-      (repeat)))
-  (content))
+      (repeat))))
 
 ================================================================================
 if
@@ -125,8 +120,7 @@ if
   (content)
   (statement_directive
     (tag_statement
-      (conditional)))
-  (content))
+      (conditional))))
 
 ================================================================================
 Block
@@ -155,8 +149,7 @@ Block
   (content)
   (statement_directive
     (tag_statement
-      (tag)))
-  (content))
+      (tag))))
 
 ================================================================================
 extends
@@ -170,8 +163,7 @@ extends
   (statement_directive
     (tag_statement
       (tag)
-      (interpolated_string)))
-  (content))
+      (interpolated_string))))
 
 ================================================================================
 Cache
@@ -199,8 +191,7 @@ Cache
   (content)
   (statement_directive
     (tag_statement
-      (tag)))
-  (content))
+      (tag))))
 
 ================================================================================
 Include
@@ -222,8 +213,7 @@ Include
           (string))
         (hash_value
           (string)))
-      (attribute)))
-  (content))
+      (attribute))))
 
 ================================================================================
 with
@@ -242,8 +232,7 @@ with
           (name))
         (hash_value
           (number)))
-      (attribute)))
-  (content))
+      (attribute))))
 
 ================================================================================
 macro
@@ -264,8 +253,7 @@ macro
         (parameter
           (interpolated_string))
         (parameter
-          (number)))))
-  (content))
+          (number))))))
 
 ================================================================================
 import
@@ -281,8 +269,7 @@ import
       (tag)
       (interpolated_string)
       (keyword)
-      (name)))
-  (content))
+      (name))))
 
 ================================================================================
 from
@@ -298,8 +285,7 @@ from
       (tag)
       (interpolated_string)
       (keyword)
-      (name)))
-  (content))
+      (name))))
 
 ================================================================================
 from with as
@@ -318,8 +304,7 @@ from with as
       (name)
       (keyword)
       (name)
-      (name)))
-  (content))
+      (name))))
 
 ================================================================================
 same as
@@ -340,8 +325,7 @@ same as
         (arguments
           (argument
             (argument_value
-              (boolean)))))))
-  (content))
+              (boolean))))))))
 
 ================================================================================
 constant
@@ -365,8 +349,7 @@ constant
               (string)))
           (argument
             (argument_value
-              (variable)))))))
-  (content))
+              (variable))))))))
 
 ================================================================================
 empty
@@ -383,8 +366,7 @@ empty
       (test_expression
         (variable)
         (operator)
-        (test))))
-  (content))
+        (test)))))
 
 ================================================================================
 test and binary
@@ -405,8 +387,7 @@ test and binary
         (binary_operator)
         (unary_expression
           (operator)
-          (variable)))))
-  (content))
+          (variable))))))
 
 ================================================================================
 multiple for
@@ -423,8 +404,7 @@ multiple for
       (variable)
       (variable)
       (keyword)
-      (variable)))
-  (content))
+      (variable))))
 
 ================================================================================
 Empty string
@@ -439,8 +419,7 @@ Empty string
     (assignment_statement
       (keyword)
       (variable)
-      (string)))
-  (content))
+      (string))))
 
 ================================================================================
 Empty interpolated string
@@ -455,8 +434,7 @@ Empty interpolated string
     (assignment_statement
       (keyword)
       (variable)
-      (interpolated_string)))
-  (content))
+      (interpolated_string))))
 
 ================================================================================
 Empty interpolated string w/ expression
@@ -472,5 +450,4 @@ Empty interpolated string w/ expression
       (keyword)
       (variable)
       (interpolated_string
-        (variable))))
-  (content))
+        (variable)))))
