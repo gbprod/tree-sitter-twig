@@ -33,34 +33,22 @@
   },
   "homepage": "https://github.com/gbprod/tree-sitter-twig#readme",
   "dependencies": {
-    "node-addon-api": "^7.1.0",
+    "node-addon-api": "^8.0.0",
     "node-gyp-build": "^4.8.0"
   },
   "peerDependencies": {
     "tree-sitter": "^0.21.0"
   },
   "peerDependenciesMeta": {
-    "tree_sitter": {
+    "tree-sitter": {
       "optional": true
     }
   },
   "devDependencies": {
-    "tree-sitter-cli": "^0.20.7",
+    "tree-sitter-cli": "^0.26.0",
     "prebuildify": "^6.0.0"
   },
-  "tree-sitter": [
-    {
-      "scope": "twig",
-      "file-types": [
-        "twig",
-        "html.twig",
-        "html.twig.js.css"
-      ],
-      "highlights": [
-        "queries/highlights.scm"
-      ],
-      "injections": "queries/injections.scm",
-      "injection-regex": "twig"
-    }
-  ]
+  "allowScripts": {
+    "tree-sitter-cli@0.26.10": true
+  }
 }

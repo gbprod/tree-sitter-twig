@@ -1,0 +1,32 @@
+{
+  "grammars": [
+    {
+      "name": "twig",
+      "camelcase": "Twig",
+      "scope": "source.twig",
+      "path": ".",
+      "highlights": "queries/highlights.scm",
+      "file-types": [
+        "twig",
+        "html.twig",
+        "html.twig.js.css"
+      ],
+      "injection-regex": "twig",
+      "injections": "queries/injections.scm"
+    }
+  ],
+  "metadata": {
+    "version": "1.0.0",
+    "license": "WTFPL",
+    "description": "Twig grammar for tree-sitter",
+    "authors": [
+      {
+        "name": "gbprod",
+        "email": "contact@gb-prod.fr"
+      }
+    ],
+    "links": {
+      "repository": "https://github.com/gbprod/tree-sitter-twig"
+    }
+  }
+}

@@ -1,5 +1,9 @@
 "Twig grammar for tree-sitter"
 
-from ._binding import language
+from . import _binding
+from tree_sitter import Language
+
+def language() -> Language:
+    return Language(_binding.language())
 
 __all__ = ["language"]
