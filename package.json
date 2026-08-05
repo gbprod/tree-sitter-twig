@@ -45,10 +45,10 @@
     }
   },
   "devDependencies": {
-    "tree-sitter-cli": "^0.26.0",
+    "tree-sitter-cli": "^0.25.10",
     "prebuildify": "^6.0.0"
   },
   "allowScripts": {
-    "tree-sitter-cli@0.26.10": true
+    "tree-sitter-cli@0.25.10": true
   }
 }

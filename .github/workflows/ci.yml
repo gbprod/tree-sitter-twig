@@ -33,7 +33,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
       - name: Set up tree-sitter
-        run: npm install -g tree-sitter-cli
+        uses: tree-sitter/setup-action/cli@v1
+        with:
+          tree-sitter-ref: v0.25.10
       - name: Run tests
         uses: tree-sitter/parser-test-action@v2
         with:
