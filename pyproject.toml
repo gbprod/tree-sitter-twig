@@ -5,24 +5,24 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "tree-sitter-twig"
 description = "Twig grammar for tree-sitter"
-version = "0.0.1"
+version = "1.1.0"
 keywords = ["incremental", "parsing", "tree-sitter", "twig"]
 classifiers = [
   "Intended Audience :: Developers",
-  "License :: OSI Approved :: MIT License",
+  "License :: Freely Distributable",
   "Topic :: Software Development :: Compilers",
   "Topic :: Text Processing :: Linguistic",
   "Typing :: Typed"
 ]
 requires-python = ">=3.8"
-license.text = "MIT"
+license.text = "WTFPL"
 readme = "README.md"
 
 [project.urls]
-Homepage = "https://github.com/tree-sitter/tree-sitter-twig"
+Homepage = "https://github.com/gbprod/tree-sitter-twig"
 
 [project.optional-dependencies]
-core = ["tree-sitter~=0.24"]
+core = ["tree-sitter~=0.25"]
 
 [tool.cibuildwheel]
 build = "cp38-*"

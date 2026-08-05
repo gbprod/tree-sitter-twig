@@ -1,8 +1,10 @@
 {
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/config.schema.json",
   "grammars": [
     {
       "name": "twig",
       "camelcase": "Twig",
+      "title": "Twig",
       "scope": "source.twig",
       "path": ".",
       "highlights": "queries/highlights.scm",
@@ -12,11 +14,12 @@
         "html.twig.js.css"
       ],
       "injection-regex": "twig",
-      "injections": "queries/injections.scm"
+      "injections": "queries/injections.scm",
+      "class-name": "TreeSitterTwig"
     }
   ],
   "metadata": {
-    "version": "1.0.0",
+    "version": "1.1.0",
     "license": "WTFPL",
     "description": "Twig grammar for tree-sitter",
     "authors": [
@@ -28,5 +31,14 @@
     "links": {
       "repository": "https://github.com/gbprod/tree-sitter-twig"
     }
+  },
+  "bindings": {
+    "c": true,
+    "go": true,
+    "node": true,
+    "python": true,
+    "rust": true,
+    "swift": true,
+    "zig": false
   }
 }
