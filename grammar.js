@@ -151,7 +151,7 @@ module.exports = grammar({
       prec.left(
         seq(
           $._name,
-          repeat(seq('.', $._name)),
+          repeat(seq(choice('.', '?.'), $._name)),
           optional(
             seq(
               '[',
