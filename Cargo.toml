@@ -6,7 +6,7 @@ keywords = ["incremental", "parsing", "twig"]
 categories = ["parsing", "text-editors"]
 repository = "https://github.com/gbprod/tree-sitter-twig"
 edition = "2021"
-license = "WTFPL"
+license = "MIT"
 
 build = "bindings/rust/build.rs"
 include = [
