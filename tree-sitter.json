@@ -20,7 +20,7 @@
   ],
   "metadata": {
     "version": "1.1.0",
-    "license": "WTFPL",
+    "license": "MIT",
     "description": "Twig grammar for tree-sitter",
     "authors": [
       {

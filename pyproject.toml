@@ -9,13 +9,13 @@ version = "1.1.0"
 keywords = ["incremental", "parsing", "tree-sitter", "twig"]
 classifiers = [
   "Intended Audience :: Developers",
-  "License :: Freely Distributable",
+  "License :: OSI Approved :: MIT License",
   "Topic :: Software Development :: Compilers",
   "Topic :: Text Processing :: Linguistic",
   "Typing :: Typed"
 ]
 requires-python = ">=3.8"
-license.text = "WTFPL"
+license.text = "MIT"
 readme = "README.md"
 
 [project.urls]
