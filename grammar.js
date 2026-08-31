@@ -1,6 +1,6 @@
 const REGEX_NAME = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
-const REGEX_STRING_SIMPLE_QUOTED = /\'([^\'\\\\]*(?:\\\\.[^\'\\\\]*)*)\'/;
-const REGEX_STRING_INTERPOLATED = /[^#"\\\\]+/;
+const REGEX_STRING_SIMPLE_QUOTED = /'([^'\\]*(?:\\.[^'\\]*)*)'/;
+const REGEX_STRING_INTERPOLATED = /[^#"\\]+/;
 const REGEX_NUMBER = /[0-9]+(?:\.[0-9]+)?([Ee][\+\-][0-9]+)?/;
 
 module.exports = grammar({
@@ -182,9 +182,7 @@ module.exports = grammar({
         '"',
         repeat(
           choice(
-            '\\"',
-            '\\#',
-            '\\\\',
+            /\\[\s\S]/,
             REGEX_STRING_INTERPOLATED,
             seq('#{', $._expression, '}')
           )
