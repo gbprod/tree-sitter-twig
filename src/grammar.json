@@ -1010,7 +1010,7 @@
           "type": "ALIAS",
           "content": {
             "type": "PATTERN",
-            "value": "\\'([^\\'\\\\\\\\]*(?:\\\\\\\\.[^\\'\\\\\\\\]*)*)\\'"
+            "value": "'([^'\\\\]*(?:\\\\.[^'\\\\]*)*)'"
           },
           "named": true,
           "value": "string"
@@ -1034,20 +1034,12 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "STRING",
-                "value": "\\\""
-              },
-              {
-                "type": "STRING",
-                "value": "\\#"
-              },
-              {
-                "type": "STRING",
-                "value": "\\\\"
+                "type": "PATTERN",
+                "value": "\\\\[\\s\\S]"
               },
               {
                 "type": "PATTERN",
-                "value": "[^#\"\\\\\\\\]+"
+                "value": "[^#\"\\\\]+"
               },
               {
                 "type": "SEQ",
