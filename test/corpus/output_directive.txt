@@ -524,3 +524,288 @@ Interpolated string w/ escape sequences
     (interpolated_string
       (variable)))
   (content))
+
+================================================================================
+Inline comments
+================================================================================
+
+{{
+  # this is an inline comment
+  "Hello World"|upper
+  # this is an inline comment
+}}
+
+--------------------------------------------------------------------------------
+
+(template
+ (output_directive
+  (inline_comment)
+  (interpolated_string)
+  (filter
+   (filter_identifier))
+  (inline_comment))
+ (content))
+
+================================================================================
+Inline comments 2
+================================================================================
+
+{{
+    {
+        # this is an inline comment
+        fruit: 'apple', # this is an inline comment
+        color: 'red', # this is an inline comment
+    }|join(', ')
+}}
+
+--------------------------------------------------------------------------------
+
+(template
+ (output_directive
+  (hash
+   (inline_comment)
+   (hash_key
+    (name))
+   (hash_value
+    (string))
+   (inline_comment)
+   (hash_key
+    (name))
+   (hash_value
+    (string))
+   (inline_comment))
+  (filter
+   (filter_identifier)
+   (arguments
+    (argument
+     (argument_value
+      (string))))))
+ (content))
+
+================================================================================
+Inline comment runs to the end of the line, `}}` included
+================================================================================
+
+{{ foo # the closing }} is part of the comment
+}}
+
+--------------------------------------------------------------------------------
+
+(template
+ (output_directive
+  (variable)
+  (inline_comment))
+ (content))
+
+================================================================================
+Hash in content is not an inline comment
+================================================================================
+
+a # b
+c { # d
+
+--------------------------------------------------------------------------------
+
+(template
+ (content))
+
+================================================================================
+Interpolation is not an inline comment
+================================================================================
+
+{{ "hello #{name} # not a comment" }}
+
+--------------------------------------------------------------------------------
+
+(template
+ (output_directive
+  (interpolated_string
+   (variable)))
+ (content))
+
+================================================================================
+Hash inside strings is not an inline comment
+================================================================================
+
+{{ "a#" ~ "#" ~ 'single # quoted' }}
+
+--------------------------------------------------------------------------------
+
+(template
+ (output_directive
+  (binary_expression
+   (interpolated_string)
+   (operator)
+   (binary_expression
+    (interpolated_string)
+    (operator)
+    (string))))
+ (content))
+
+================================================================================
+Inline comments in an array and in filter arguments
+================================================================================
+
+{{ [1, # first
+    2 # second
+   ]|join(', ' # separator
+) }}
+
+--------------------------------------------------------------------------------
+
+(template
+ (output_directive
+  (array
+   (number)
+   (inline_comment)
+   (number)
+   (inline_comment))
+  (filter
+   (filter_identifier)
+   (arguments
+    (argument
+     (argument_value
+      (string)))
+    (inline_comment))))
+ (content))
+
+================================================================================
+Inline comments in function arguments
+================================================================================
+
+{{ range(1, # from
+         10 # to
+) }}
+
+--------------------------------------------------------------------------------
+
+(template
+ (output_directive
+  (function_call
+   (function_identifier)
+   (arguments
+    (argument
+     (argument_value
+      (number)))
+    (inline_comment)
+    (argument
+     (argument_value
+      (number)))
+    (inline_comment))))
+ (content))
+
+================================================================================
+Consecutive inline comments
+================================================================================
+
+{{
+  # comment one
+  # comment two
+  foo
+}}
+
+--------------------------------------------------------------------------------
+
+(template
+ (output_directive
+  (inline_comment)
+  (inline_comment)
+  (variable))
+ (content))
+
+================================================================================
+Inline comments after an operator
+================================================================================
+
+{{ a ~ # about b
+   b }}
+{{ not # negated
+   flag }}
+{{ x is # tested
+   defined }}
+
+--------------------------------------------------------------------------------
+
+(template
+ (output_directive
+  (binary_expression
+   (variable)
+   (operator)
+   (inline_comment)
+   (variable)))
+ (output_directive
+  (unary_expression
+   (operator)
+   (inline_comment)
+   (variable)))
+ (output_directive
+  (test_expression
+   (variable)
+   (operator)
+   (inline_comment)
+   (test)))
+ (content))
+
+================================================================================
+Inline comments inside a ternary and after an opening parenthesis
+================================================================================
+
+{{ cond ? # then
+   x : # else
+   y }}
+{{ ( # grouped
+   a ~ b) }}
+
+--------------------------------------------------------------------------------
+
+(template
+ (output_directive
+  (ternary_expression
+   (variable)
+   (inline_comment)
+   (variable)
+   (inline_comment)
+   (variable)))
+ (output_directive
+  (inline_comment)
+  (binary_expression
+   (variable)
+   (operator)
+   (variable)))
+ (content))
+
+================================================================================
+Inline comments before an operator
+================================================================================
+
+{{ a # about a
+   ~ b # about b
+}}
+
+--------------------------------------------------------------------------------
+
+(template
+ (output_directive
+  (binary_expression
+   (variable)
+   (inline_comment)
+   (operator)
+   (variable))
+  (inline_comment))
+ (content))
+
+================================================================================
+Inline comments inside a string interpolation
+================================================================================
+
+{{ "x#{ 1 # c
+}y" }}
+
+--------------------------------------------------------------------------------
+
+(template
+ (output_directive
+  (interpolated_string
+   (number)
+   (inline_comment)))
+ (content))

@@ -2,10 +2,16 @@ const REGEX_NAME = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
 const REGEX_STRING_SIMPLE_QUOTED = /'([^'\\]*(?:\\.[^'\\]*)*)'/;
 const REGEX_STRING_INTERPOLATED = /[^#"\\]+/;
 const REGEX_NUMBER = /[0-9]+(?:\.[0-9]+)?([Ee][\+\-][0-9]+)?/;
+// Twig's `REGEX_RAW_INLINE_COMMENT`: `#` up to the end of the line. A closing
+// `}}` / `%}` does not terminate it, it becomes part of the comment.
+const REGEX_INLINE_COMMENT = /#[^\r\n]*/;
+// Twig's `REGEX_DQ_STRING_PART` accepts a `#` that is not followed by `{`
+// (`#(?!\{)`) as plain string content.
+const REGEX_STRING_HASH = /#([^{"\\][^#"\\]*)?/;
 
 module.exports = grammar({
   name: 'twig',
-  extras: () => [/\s/],
+  extras: ($) => [/\s/, $.inline_comment],
   rules: {
     template: ($) =>
       repeat(
@@ -13,6 +19,8 @@ module.exports = grammar({
       ),
 
     content: () => prec.right(repeat1(/[^\{]+|\{/)),
+
+    inline_comment: () => token(REGEX_INLINE_COMMENT),
 
     comment: () => seq('{#', /[^#]*\#+([^\}#][^#]*\#+)*/, '}'),
 
@@ -184,7 +192,8 @@ module.exports = grammar({
           choice(
             /\\[\s\S]/,
             REGEX_STRING_INTERPOLATED,
-            seq('#{', $._expression, '}')
+            token(prec(1, REGEX_STRING_HASH)),
+            seq(token(prec(2, '#{')), $._expression, '}')
           )
         ),
         '"'
