@@ -474,3 +474,37 @@ Empty interpolated string w/ expression
       (interpolated_string
         (variable))))
   (content))
+
+================================================================================
+Inline comments in statements
+================================================================================
+
+{% set foo = "bar" # inline comment
+%}
+{% for item in items # loop comment
+%}
+{% if condition # conditional comment
+%}
+
+--------------------------------------------------------------------------------
+
+(template
+ (statement_directive
+  (assignment_statement
+   (keyword)
+   (variable)
+   (interpolated_string))
+  (inline_comment))
+ (statement_directive
+  (for_statement
+   (repeat)
+   (variable)
+   (keyword)
+   (variable))
+  (inline_comment))
+ (statement_directive
+  (if_statement
+   (conditional)
+   (variable))
+  (inline_comment))
+ (content))

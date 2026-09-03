@@ -37,6 +37,13 @@
         }
       }
     },
+    "inline_comment": {
+      "type": "TOKEN",
+      "content": {
+        "type": "PATTERN",
+        "value": "#[^\\r\\n]*"
+      }
+    },
     "comment": {
       "type": "SEQ",
       "members": [
@@ -1042,11 +1049,29 @@
                 "value": "[^#\"\\\\]+"
               },
               {
+                "type": "TOKEN",
+                "content": {
+                  "type": "PREC",
+                  "value": 1,
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "#([^{\"\\\\][^#\"\\\\]*)?"
+                  }
+                }
+              },
+              {
                 "type": "SEQ",
                 "members": [
                   {
-                    "type": "STRING",
-                    "value": "#{"
+                    "type": "TOKEN",
+                    "content": {
+                      "type": "PREC",
+                      "value": 2,
+                      "content": {
+                        "type": "STRING",
+                        "value": "#{"
+                      }
+                    }
                   },
                   {
                     "type": "SYMBOL",
@@ -1910,6 +1935,10 @@
     {
       "type": "PATTERN",
       "value": "\\s"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "inline_comment"
     }
   ],
   "conflicts": [],
